@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Dosen;
+use Illuminate\Http\Request;
+
+class DosenController extends Controller
+{
+    public function index()
+    {
+        $dosens = Dosen::all();
+
+        return view('dosen.index', compact('dosens'));
+    }
+
+    public function create()
+    {
+        return view('dosen.create');
+    }
+
+    public function store(Request $request)
+    {
+        Dosen::create([
+            'nama' => $request->nama,
+            'nidn' => $request->nidn,
+            'jabatan' => $request->jabatan,
+            'program_studi' => $request->program_studi,
+        ]);
+
+        return redirect('/dosen');
+    }
+
+    public function show(Dosen $dosen)
+    {
+        //
+    }
+
+    public function edit($id)
+{
+    $dosen = Dosen::findOrFail($id);
+
+    return view('dosen.edit', compact('dosen'));
+}
+
+public function update(Request $request, $id)
+{
+    $dosen = Dosen::findOrFail($id);
+
+    $dosen->update([
+        'nama' => $request->nama,
+        'nidn' => $request->nidn,
+        'jabatan' => $request->jabatan,
+        'program_studi' => $request->program_studi,
+    ]);
+
+    return redirect('/dosen');
+}
+
+public function destroy($id)
+{
+    Dosen::findOrFail($id)->delete();
+
+    return redirect('/dosen');
+}
+}

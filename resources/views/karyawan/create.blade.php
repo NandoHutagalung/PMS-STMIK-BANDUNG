@@ -6,32 +6,34 @@
 
     <div class="p-6">
 
-        <form>
+        <form action="/karyawan" method="POST">
+
+            @csrf
 
             <div>
-                <label>Nama</label>
-                <input type="text">
+                <label>Nama</label><br>
+                <input type="text" name="nama">
             </div>
 
             <br>
 
             <div>
-                <label>NIP</label>
-                <input type="text">
+                <label>NIP</label><br>
+                <input type="text" name="nip">
             </div>
 
             <br>
 
             <div>
-                <label>Jabatan</label>
-                <input type="text">
+                <label>Jabatan</label><br>
+                <input type="text" name="jabatan">
             </div>
 
             <br>
 
             <div>
-                <label>Departemen</label>
-                <input type="text">
+                <label>Departemen</label><br>
+                <input type="text" name="departemen">
             </div>
 
             <br>

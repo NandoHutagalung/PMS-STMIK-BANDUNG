@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Karyawan extends Model
+class Kpi extends Model
 {
     protected $fillable = [
-        'nama',
-        'nip',
-        'jabatan',
-        'departemen'
+        'kode_kpi',
+        'nama_kpi',
+        'bobot',
+        'deskripsi'
     ];
 }
