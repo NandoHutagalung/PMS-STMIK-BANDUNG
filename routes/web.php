@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KpiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\EvaluasiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('kpi', KpiController::class);
     Route::resource('periode', PeriodeController::class);
+    Route::resource('evaluasi', EvaluasiController::class);
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);
