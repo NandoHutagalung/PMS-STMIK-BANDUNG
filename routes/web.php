@@ -6,6 +6,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KpiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeriodeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
     Route::resource('kpi', KpiController::class);
+    Route::resource('periode', PeriodeController::class);
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);

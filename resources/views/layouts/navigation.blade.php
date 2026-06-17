@@ -27,6 +27,10 @@
                     <x-nav-link :href="url('/kpi')">
                       KPI
                     </x-nav-link>
+                    <x-nav-link :href="url('/periode')">
+                     Periode
+                     
+                    </x-nav-link>
                 </div>
             </div>
 
