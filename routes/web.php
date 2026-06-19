@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
+    Route::get('/laporan', [LaporanController::class, 'index'])
+    ->name('laporan.index');
+
     Route::resource('kpi', KpiController::class);
     Route::resource('periode', PeriodeController::class);
     Route::resource('evaluasi', EvaluasiController::class);

@@ -4,20 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluasi;
 use App\Models\Periode;
+use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function index()
+   public function index(Request $request)
+{
+    $periodes = Periode::all();
+
+    $evaluasis = Evaluasi::query();
+
+    if($request->periode_id)
     {
-        $evaluasis = Evaluasi::all();
-        $periodes = Periode::all();
+        $evaluasis->where(
+            'periode_id',
+            $request->periode_id
+        );
+    }
 
-        $rataRata = Evaluasi::avg('nilai');
+    $evaluasis = $evaluasis->get();
 
-        return view('laporan.index', compact(
+    $rataRata = $evaluasis->avg('nilai');
+
+    return view(
+        'laporan.index',
+        compact(
             'evaluasis',
             'periodes',
             'rataRata'
-        ));
-    }
+        )
+    );
+}
 }

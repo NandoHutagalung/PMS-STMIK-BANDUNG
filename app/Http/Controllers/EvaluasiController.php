@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 class EvaluasiController extends Controller
 {
     public function index()
-    {
-        $evaluasis = Evaluasi::all();
+    {        $evaluasis = Evaluasi::with(['periode','kpi'])->get();
 
         return view('evaluasi.index', compact('evaluasis'));
     }

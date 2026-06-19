@@ -31,9 +31,9 @@
 
                 <td>{{ $loop->iteration }}</td>
 
-                <td>{{ $evaluasi->periode_id }}</td>
+                <td>{{ $evaluasi->periode->nama_periode }}</td>
 
-                <td>{{ $evaluasi->kpi_id }}</td>
+                <td>{{ $evaluasi->kpi->nama_kpi }}</td>
 
                 <td>{{ $evaluasi->nama_pegawai }}</td>
 

@@ -17,4 +17,13 @@ class Capaian extends Model
         'persentase',
         'keterangan',
     ];
+    public function periode()
+{
+    return $this->belongsTo(Periode::class);
+}
+
+public function kpi()
+{
+    return $this->belongsTo(Kpi::class);
+}
 }
