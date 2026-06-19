@@ -10,13 +10,34 @@ use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\EvaluasiController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\CapaianController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+use App\Models\Dosen;
+use App\Models\Karyawan;
+use App\Models\Kpi;
+use App\Models\Periode;
+use App\Models\Evaluasi;
+use App\Models\Feedback;
+use App\Models\Capaian;
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+
+    return view('dashboard', [
+
+        'totalDosen' => Dosen::count(),
+        'totalKaryawan' => Karyawan::count(),
+        'totalKpi' => Kpi::count(),
+        'totalPeriode' => Periode::count(),
+        'totalEvaluasi' => Evaluasi::count(),
+        'totalFeedback' => Feedback::count(),
+        'totalCapaian' => Capaian::count(),
+
+    ]);
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -33,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('evaluasi', EvaluasiController::class);
     Route::resource('feedback', FeedbackController::class);
     Route::resource('capaian', CapaianController::class);
+    Route::resource('laporan', LaporanController::class);
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);

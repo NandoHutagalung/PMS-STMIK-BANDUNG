@@ -39,6 +39,9 @@
                     <x-nav-link :href="url('/capaian')">
                       Capaian
                     </x-nav-link>
+                    <x-nav-link :href="url('/laporan')">
+                      Laporan
+                    </x-nav-link>
                 </div>
             </div>
 
