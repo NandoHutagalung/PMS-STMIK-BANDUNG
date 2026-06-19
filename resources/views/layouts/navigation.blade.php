@@ -11,38 +11,96 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="url('/users')">
-                      User
-                    </x-nav-link>
-                    <x-nav-link :href="url('/dosen')">
-                      Data Dosen
-                    </x-nav-link>
-                    <x-nav-link :href="url('/karyawan')">
-                      Data Karyawan
-                    </x-nav-link>
-                    <x-nav-link :href="url('/kpi')">
-                      KPI
-                    </x-nav-link>
-                    <x-nav-link :href="url('/periode')">
-                      Periode
-                    </x-nav-link>
-                    <x-nav-link :href="url('/evaluasi')">
-                      Evaluasi
-                    </x-nav-link>
-                    <x-nav-link :href="url('/feedback')">
-                      Feedback
-                    </x-nav-link>
-                    <x-nav-link :href="url('/capaian')">
-                      Capaian
-                    </x-nav-link>
-                    <x-nav-link :href="url('/laporan')">
-                      Laporan
-                    </x-nav-link>
-                </div>
+               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
+    <x-nav-link :href="route('dashboard')">
+        Dashboard
+    </x-nav-link>
+
+    @if(Auth::user()->role == 'admin')
+
+        <x-nav-link :href="url('/users')">
+            User
+        </x-nav-link>
+
+        <x-nav-link :href="url('/dosen')">
+            Data Dosen
+        </x-nav-link>
+
+        <x-nav-link :href="url('/karyawan')">
+            Data Karyawan
+        </x-nav-link>
+
+        <x-nav-link :href="url('/kpi')">
+            KPI
+        </x-nav-link>
+
+        <x-nav-link :href="url('/periode')">
+            Periode
+        </x-nav-link>
+
+        <x-nav-link :href="url('/evaluasi')">
+            Evaluasi
+        </x-nav-link>
+
+        <x-nav-link :href="url('/feedback')">
+            Feedback
+        </x-nav-link>
+
+        <x-nav-link :href="url('/capaian')">
+            Capaian
+        </x-nav-link>
+
+        <x-nav-link :href="url('/laporan')">
+            Laporan
+        </x-nav-link>
+
+    @endif
+
+    @if(Auth::user()->role == 'atasan')
+
+        <x-nav-link :href="url('/evaluasi')">
+            Evaluasi
+        </x-nav-link>
+
+        <x-nav-link :href="url('/laporan')">
+            Laporan
+        </x-nav-link>
+
+    @endif
+
+    @if(Auth::user()->role == 'dosen')
+
+        <x-nav-link :href="url('/kpi')">
+            KPI
+        </x-nav-link>
+
+        <x-nav-link :href="url('/capaian')">
+            Capaian
+        </x-nav-link>
+
+        <x-nav-link :href="url('/feedback')">
+            Feedback
+        </x-nav-link>
+
+    @endif
+
+    @if(Auth::user()->role == 'karyawan')
+
+        <x-nav-link :href="url('/kpi')">
+            KPI
+        </x-nav-link>
+
+        <x-nav-link :href="url('/capaian')">
+            Capaian
+        </x-nav-link>
+
+        <x-nav-link :href="url('/feedback')">
+            Feedback
+        </x-nav-link>
+
+            @endif  
+
             </div>
 
             <!-- Settings Dropdown -->
