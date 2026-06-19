@@ -33,6 +33,12 @@
                     <x-nav-link :href="url('/evaluasi')">
                       Evaluasi
                     </x-nav-link>
+                    <x-nav-link :href="url('/feedback')">
+                      Feedback
+                    </x-nav-link>
+                    <x-nav-link :href="url('/capaian')">
+                      Capaian
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -8,6 +8,8 @@ use App\Http\Controllers\KpiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\EvaluasiController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\CapaianController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('kpi', KpiController::class);
     Route::resource('periode', PeriodeController::class);
     Route::resource('evaluasi', EvaluasiController::class);
+    Route::resource('feedback', FeedbackController::class);
+    Route::resource('capaian', CapaianController::class);
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);
