@@ -9,9 +9,12 @@ class Feedback extends Model
     protected $table = 'feedback';
 
     protected $fillable = [
-        'pegawai',
-        'jabatan',
+
+        'pemberi_feedback',
+        'penerima_feedback',
+
         'feedback',
         'status',
+
     ];
 }

@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Periode;
-use App\Models\Kpi;
 
 class Evaluasi extends Model
 {

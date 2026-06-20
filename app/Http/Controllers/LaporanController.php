@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Evaluasi;
 use App\Models\Periode;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -13,6 +14,7 @@ class LaporanController extends Controller
     $periodes = Periode::all();
 
     $evaluasis = Evaluasi::query();
+    
 
     if($request->periode_id)
     {

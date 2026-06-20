@@ -29,12 +29,17 @@ class EvaluasiController extends Controller
     public function store(Request $request)
     {
         Evaluasi::create([
-            'periode_id' => $request->periode_id,
-            'kpi_id' => $request->kpi_id,
-            'nama_pegawai' => $request->nama_pegawai,
-            'nilai' => $request->nilai,
-            'catatan' => $request->catatan,
-        ]);
+
+    'periode_id' => $request->periode_id,
+    'kpi_id' => $request->kpi_id,
+
+    'penilai' => $request->penilai,
+    'pegawai_dinilai' => $request->pegawai_dinilai,
+
+    'nilai' => $request->nilai,
+    'catatan' => $request->catatan,
+
+]);
 
         return redirect('/evaluasi');
     }

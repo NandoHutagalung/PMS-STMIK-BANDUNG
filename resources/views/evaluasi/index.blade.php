@@ -23,6 +23,8 @@
                 <th>Nilai</th>
                 <th>Catatan</th>
                 <th>Aksi</th>
+                <th>Penilai</th>
+                <th>Pegawai Dinilai</th>
             </tr>
 
             @foreach($evaluasis as $evaluasi)
@@ -34,12 +36,11 @@
                 <td>{{ $evaluasi->periode->nama_periode }}</td>
 
                 <td>{{ $evaluasi->kpi->nama_kpi }}</td>
-
                 <td>{{ $evaluasi->nama_pegawai }}</td>
-
                 <td>{{ $evaluasi->nilai }}</td>
-
                 <td>{{ $evaluasi->catatan }}</td>
+                <td>{{ $evaluasi->penilai }}</td>
+                <td>{{ $evaluasi->pegawai_dinilai }}</td>
 
                 <td>
 

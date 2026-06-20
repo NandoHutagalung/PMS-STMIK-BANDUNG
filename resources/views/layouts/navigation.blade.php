@@ -67,6 +67,10 @@
             Laporan
         </x-nav-link>
 
+        <x-nav-link :href="url('/monitoring')">
+            Monitoring
+        </x-nav-link>
+
     @endif
 
     @if(Auth::user()->role == 'dosen')
@@ -81,6 +85,10 @@
 
         <x-nav-link :href="url('/feedback')">
             Feedback
+        </x-nav-link>
+
+        <x-nav-link :href="url('/hasil-evaluasi')">
+            Hasil Evaluasi
         </x-nav-link>
 
     @endif
@@ -99,7 +107,13 @@
             Feedback
         </x-nav-link>
 
-            @endif  
+        <x-nav-link :href="url('/hasil-evaluasi')">
+            Hasil Evaluasi
+        </x-nav-link>
+
+    @endif
+
+                </div>
 
             </div>
 

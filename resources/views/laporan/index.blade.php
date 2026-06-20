@@ -24,7 +24,7 @@
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
 
-    <div class="bg-blue-600 text-grey rounded-lg p-5">
+    <div class="bg-blue-600 text-white rounded-lg p-5">
 
         <h4>Total Evaluasi</h4>
 
@@ -34,7 +34,7 @@
 
     </div>
 
-    <div class="bg-green-600 text-grey rounded-lg p-5">
+    <div class="bg-green-600 text-white rounded-lg p-5">
 
         <h4>Nilai Tertinggi</h4>
 
@@ -104,42 +104,51 @@
 
                 <thead class="bg-gray-100">
 
-                    <tr>
-                        <th class="p-3 border">No</th>
-                        <th class="p-3 border">Pegawai</th>
-                        <th class="p-3 border">Nilai</th>
-                        <th class="p-3 border">Catatan</th>
-                    </tr>
+                    <thead class="bg-gray-100">
+
+    <tr>
+        <th class="p-3 border">No</th>
+        <th class="p-3 border">Periode</th>
+        <th class="p-3 border">Pegawai</th>
+        <th class="p-3 border">Nilai</th>
+        <th class="p-3 border">Catatan</th>
+    </tr>
+
+</thead>
 
                 </thead>
 
                 <tbody>
 
-                    @foreach($evaluasis as $evaluasi)
+    @foreach($evaluasis as $evaluasi)
 
-                    <tr>
+    <tr>
 
-                        <td class="border p-3">
-                            {{ $loop->iteration }}
-                        </td>
+        <td class="border p-3">
+            {{ $loop->iteration }}
+        </td>
 
-                        <td class="border p-3">
-                            {{ $evaluasi->nama_pegawai }}
-                        </td>
+        <td class="border p-3">
+            {{ $evaluasi->periode->nama_periode ?? '-' }}
+        </td>
 
-                        <td class="border p-3">
-                            {{ $evaluasi->nilai }}
-                        </td>
+        <td class="border p-3">
+            {{ $evaluasi->nama_pegawai }}
+        </td>
 
-                        <td class="border p-3">
-                            {{ $evaluasi->catatan }}
-                        </td>
+        <td class="border p-3">
+            {{ $evaluasi->nilai }}
+        </td>
 
-                    </tr>
+        <td class="border p-3">
+            {{ $evaluasi->catatan }}
+        </td>
 
-                    @endforeach
+    </tr>
 
-                </tbody>
+    @endforeach
+
+</tbody>
 
             </table>
 
@@ -203,7 +212,8 @@ new Chart(ctx, {
 
     options: {
 
-        responsive: true,
+    responsive: true,
+    maintainAspectRatio: false,
 
         plugins: {
 

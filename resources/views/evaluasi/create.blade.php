@@ -47,7 +47,26 @@
             </div>
 
             <br>
+<div>
+    <label>Penilai</label>
 
+    <input
+        type="text"
+        name="penilai"
+        class="w-full border rounded-lg px-3 py-2"
+        value="{{ Auth::user()->name }}">
+</div>
+
+<br>
+
+<div>
+    <label>Pegawai Yang Dinilai</label>
+
+    <input
+        type="text"
+        name="pegawai_dinilai"
+        class="w-full border rounded-lg px-3 py-2">
+</div>
             <div>
                 <label>Nama Pegawai</label>
 

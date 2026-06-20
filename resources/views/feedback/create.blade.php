@@ -12,27 +12,27 @@
 
             @csrf
 
-            <div>
-                <label>Nama Pegawai</label>
-                <br>
+            <div class="mb-4">
+    <label class="block mb-2 font-semibold">
+        Pemberi Feedback
+    </label>
 
-                <input
-                    type="text"
-                    name="pegawai"
-                    style="width:250px;">
-            </div>
+    <input
+        type="text"
+        name="pemberi_feedback"
+        class="w-full border rounded-lg p-3">
+</div>
 
-            <br>
+<div class="mb-4">
+    <label class="block mb-2 font-semibold">
+        Penerima Feedback
+    </label>
 
-            <div>
-                <label>Jabatan</label>
-                <br>
-
-                <input
-                    type="text"
-                    name="jabatan"
-                    style="width:250px;">
-            </div>
+    <input
+        type="text"
+        name="penerima_feedback"
+        class="w-full border rounded-lg p-3">
+</div>
 
             <br>
 

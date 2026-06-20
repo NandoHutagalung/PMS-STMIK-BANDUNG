@@ -21,8 +21,8 @@
 
                 <tr>
                     <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Pegawai</th>
-                    <th class="border px-4 py-2">Jabatan</th>
+                    <th class="border px-4 py-2">Pemberi</th>
+                    <th class="border px-4 py-2">Penerima</th>
                     <th class="border px-4 py-2">Feedback</th>
                     <th class="border px-4 py-2">Status</th>
                     <th class="border px-4 py-2">Aksi</th>
@@ -41,11 +41,11 @@
                     </td>
 
                     <td class="border px-4 py-2">
-                        {{ $feedback->pegawai }}
+                        {{ $feedback->pemberi_feedback }}
                     </td>
 
                     <td class="border px-4 py-2">
-                        {{ $feedback->jabatan }}
+                        {{ $feedback->penerima_feedback }}
                     </td>
 
                     <td class="border px-4 py-2">

@@ -11,6 +11,8 @@ use App\Http\Controllers\EvaluasiController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\CapaianController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\HasilEvaluasiController;
+use App\Http\Controllers\MonitoringController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +47,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/create', [UserController::class, 'create']);
     Route::post('/users', [UserController::class, 'store']);
 
+    Route::get(
+    '/hasil-evaluasi',
+    [HasilEvaluasiController::class,'index']
+    )->middleware('auth');
+
+    Route::get(
+    '/monitoring',
+    [MonitoringController::class,'index']
+    )->middleware('auth');
+
     Route::get('/users/{id}/edit', [UserController::class, 'edit']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
@@ -58,6 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('feedback', FeedbackController::class);
     Route::resource('capaian', CapaianController::class);
     Route::resource('laporan', LaporanController::class);
+
+    Route::get(
+    '/laporan/pdf',
+    [LaporanController::class, 'pdf']
+    )->name('laporan.pdf');
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);

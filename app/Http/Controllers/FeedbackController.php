@@ -22,13 +22,17 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         Feedback::create([
-            'pegawai' => $request->pegawai,
-            'jabatan' => $request->jabatan,
+
+            'pemberi_feedback' => $request->pemberi_feedback,
+            'penerima_feedback' => $request->penerima_feedback,
+
             'feedback' => $request->feedback,
             'status' => $request->status,
+
         ]);
 
-        return redirect('/feedback');
+        return redirect('/feedback')
+            ->with('success', 'Feedback berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -43,19 +47,24 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
 
         $feedback->update([
-            'pegawai' => $request->pegawai,
-            'jabatan' => $request->jabatan,
+
+            'pemberi_feedback' => $request->pemberi_feedback,
+            'penerima_feedback' => $request->penerima_feedback,
+
             'feedback' => $request->feedback,
             'status' => $request->status,
+
         ]);
 
-        return redirect('/feedback');
+        return redirect('/feedback')
+            ->with('success', 'Feedback berhasil diupdate');
     }
 
     public function destroy($id)
     {
         Feedback::findOrFail($id)->delete();
 
-        return redirect('/feedback');
+        return redirect('/feedback')
+            ->with('success', 'Feedback berhasil dihapus');
     }
 }
