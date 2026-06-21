@@ -24,7 +24,7 @@
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
 
-    <div class="bg-blue-600 text-white rounded-lg p-5">
+    <div class="bg-blue-600 text-grey rounded-lg p-5">
 
         <h4>Total Evaluasi</h4>
 
@@ -34,7 +34,7 @@
 
     </div>
 
-    <div class="bg-green-600 text-white rounded-lg p-5">
+    <div class="bg-green-600 text-grey rounded-lg p-5">
 
         <h4>Nilai Tertinggi</h4>
 

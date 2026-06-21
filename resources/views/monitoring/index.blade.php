@@ -10,28 +10,28 @@
 
 <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
 
-    <div class="bg-blue-600 text-white p-5 rounded-lg shadow">
+    <div class="bg-blue-600 text-grey p-5 rounded-lg shadow">
         <h4>Total Dosen</h4>
         <h1 class="text-3xl font-bold">
             {{ $totalDosen }}
         </h1>
     </div>
 
-    <div class="bg-green-600 text-white p-5 rounded-lg shadow">
+    <div class="bg-green-600 text-grey p-5 rounded-lg shadow">
         <h4>Total Karyawan</h4>
         <h1 class="text-3xl font-bold">
             {{ $totalKaryawan }}
         </h1>
     </div>
 
-    <div class="bg-indigo-600 text-white p-5 rounded-lg shadow">
+    <div class="bg-indigo-600 text-grey p-5 rounded-lg shadow">
         <h4>Total Evaluasi</h4>
         <h1 class="text-3xl font-bold">
             {{ $totalEvaluasi }}
         </h1>
     </div>
 
-    <div class="bg-orange-600 text-white p-5 rounded-lg shadow">
+    <div class="bg-orange-600 text-grey p-5 rounded-lg shadow">
         <h4>Total Capaian</h4>
         <h1 class="text-3xl font-bold">
             {{ $totalCapaian }}
