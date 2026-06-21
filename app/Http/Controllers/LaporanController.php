@@ -23,6 +23,7 @@ class LaporanController extends Controller
             $request->periode_id
         );
     }
+    
 
     $evaluasis = $evaluasis->get();
 
@@ -35,6 +36,19 @@ class LaporanController extends Controller
             'periodes',
             'rataRata'
         )
+    );
+}
+public function pdf()
+{
+    $evaluasis = Evaluasi::all();
+
+    $pdf = Pdf::loadView(
+        'laporan.pdf',
+        compact('evaluasis')
+    );
+
+    return $pdf->download(
+        'laporan-kinerja.pdf'
     );
 }
 }

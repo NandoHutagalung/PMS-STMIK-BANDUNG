@@ -65,6 +65,17 @@
             <h3 class="text-lg font-bold mb-4">
                 Rekap Evaluasi
             </h3>
+            <div class="mb-4">
+
+         <a
+        href="{{ route('laporan.pdf') }}"
+        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+
+        Cetak PDF
+
+         </a>
+
+        </div>
             <form method="GET" class="mb-4 flex gap-3 items-center">
 
          <select

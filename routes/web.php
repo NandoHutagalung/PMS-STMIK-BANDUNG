@@ -69,12 +69,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('evaluasi', EvaluasiController::class);
     Route::resource('feedback', FeedbackController::class);
     Route::resource('capaian', CapaianController::class);
-    Route::resource('laporan', LaporanController::class);
 
     Route::get(
     '/laporan/pdf',
     [LaporanController::class, 'pdf']
     )->name('laporan.pdf');
+    
+    Route::resource('laporan', LaporanController::class);
 
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);
