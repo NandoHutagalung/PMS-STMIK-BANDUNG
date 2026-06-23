@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="mb-6 text-center">
+        <h1 class="text-xl font-bold text-slate-800">Buat Akun Baru</h1>
+        <p class="text-sm text-slate-500 mt-1">Lengkapi data untuk mendaftar</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
