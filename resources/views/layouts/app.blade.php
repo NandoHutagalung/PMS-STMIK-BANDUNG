@@ -5,32 +5,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} | PMS STMIK Bandung</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased bg-slate-50">
+        <div x-data="{ sidebarOpen: false }" class="flex min-h-screen">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+            @include('layouts.sidebar')
+
+            <div class="flex-1 flex flex-col min-w-0">
+
+                @include('layouts.topbar')
+
+                <main class="flex-1 p-4 sm:p-6 lg:p-8">
+                    <div class="max-w-7xl mx-auto">
+                        @isset($header)
+                            <div class="mb-6">
+                                {{ $header }}
+                            </div>
+                        @endisset
+                        <x-alert />
+                        {{ $slot }}
                     </div>
-                </header>
-            @endisset
+                </main>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <footer class="text-center text-xs text-slate-400 py-5">
+                    &copy; {{ date('Y') }} Performance Management System &mdash; STMIK Bandung. All rights reserved.
+                </footer>
+            </div>
         </div>
     </body>
 </html>

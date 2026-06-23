@@ -1,62 +1,39 @@
 <x-app-layout>
 
-        <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800">
-            Dashboard PMS
-        </h2>
+    <x-slot name="header">
+        <h2 class="text-2xl font-bold text-slate-800">Dashboard</h2>
+        <p class="text-sm text-slate-500 mt-1">Ringkasan data Performance Management System</p>
     </x-slot>
 
-    <div class="p-6">
+    <div class="space-y-6">
 
-        <!-- Header Dashboard -->
-        <div class="bg-white shadow rounded-lg p-6 mb-6 border-l-4 border-blue-600">
-
-            <h1 class="text-3xl font-bold text-gray-800">
-                Selamat Datang, {{ Auth::user()->name }}
-            </h1>
-
-            <p class="text-gray-500 mt-2">
-                Performance Management System (PMS)
-            </p>
-
-            <p class="text-gray-400 text-sm mt-1">
-                Monitoring dan Evaluasi Kinerja Dosen serta Karyawan
-            </p>
-
+        <!-- Welcome banner -->
+        <div class="bg-gradient-to-r from-blue-700 to-blue-600 rounded-2xl p-6 sm:p-8 text-white shadow-sm relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-white/10"></div>
+            <div class="absolute right-16 bottom-0 w-24 h-24 rounded-full bg-white/10"></div>
+            <div class="relative">
+                <h1 class="text-2xl sm:text-3xl font-extrabold">
+                    Selamat Datang, {{ Auth::user()->name }} 👋
+                </h1>
+                <p class="text-blue-100 mt-2">
+                    Performance Management System (PMS)
+                </p>
+                <p class="text-blue-200 text-sm mt-1">
+                    Monitoring dan Evaluasi Kinerja Dosen serta Karyawan &mdash; STMIK Bandung
+                </p>
+            </div>
         </div>
 
-        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <!-- Stat cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total Dosen</h4>
-                <h1>{{ $totalDosen }}</h1>
-            </div>
-
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total Karyawan</h4>
-                <h1>{{ $totalKaryawan }}</h1>
-            </div>
-
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total KPI</h4>
-                <h1>{{ $totalKpi }}</h1>
-            </div>
-
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total Periode</h4>
-                <h1>{{ $totalPeriode }}</h1>
-            </div>
-
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total Evaluasi</h4>
-                <h1>{{ $totalEvaluasi }}</h1>
-            </div>
-
-            <div style="border:1px solid #1512a3;padding:20px;width:200px;">
-                <h4>Total Capaian</h4>
-                <h1>{{ $totalCapaian }}</h1>
-                            
-            </div>
+            <x-stat-card label="Total Dosen" :value="$totalDosen" icon="academic-cap" color="blue" />
+            <x-stat-card label="Total Karyawan" :value="$totalKaryawan" icon="briefcase" color="teal" />
+            <x-stat-card label="Total KPI" :value="$totalKpi" icon="target" color="purple" />
+            <x-stat-card label="Total Periode" :value="$totalPeriode" icon="calendar" color="amber" />
+            <x-stat-card label="Total Evaluasi" :value="$totalEvaluasi" icon="clipboard-check" color="green" />
+            <x-stat-card label="Total Feedback" :value="$totalFeedback" icon="chat" color="red" />
+            <x-stat-card label="Total Capaian" :value="$totalCapaian" icon="flag" color="blue" />
 
         </div>
 
