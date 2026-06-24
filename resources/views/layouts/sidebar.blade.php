@@ -70,19 +70,23 @@
 
         @if(Auth::user()->role == 'atasan')
 
-            <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
-                Evaluasi
-            </x-sidebar-link>
+    <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
+        Evaluasi
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/laporan')" icon="document-text" :active="request()->is('laporan*')">
-                Laporan
-            </x-sidebar-link>
+    <x-sidebar-link :href="url('/feedback')" icon="chat" :active="request()->is('feedback*')">
+        Feedback
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/monitoring')" icon="presentation" :active="request()->is('monitoring*')">
-                Monitoring
-            </x-sidebar-link>
+    <x-sidebar-link :href="url('/laporan')" icon="document-text" :active="request()->is('laporan*')">
+        Laporan
+    </x-sidebar-link>
 
-        @endif
+    <x-sidebar-link :href="url('/monitoring')" icon="presentation" :active="request()->is('monitoring*')">
+        Monitoring
+    </x-sidebar-link>
+
+@endif
 
         @if(Auth::user()->role == 'dosen')
 

@@ -4,16 +4,25 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-slate-800">Data Feedback Kinerja</h2>
-                <p class="text-sm text-slate-500 mt-1">Kelola umpan balik kinerja pegawai.</p>
+                <p class="text-sm text-slate-500 mt-1">
+                    @if(Auth::user()->role == 'karyawan')
+                        Lihat umpan balik kinerja dari dosen dan atasan.
+                    @else
+                        Kelola umpan balik kinerja pegawai.
+                    @endif
+                </p>
             </div>
+            @if(Auth::user()->role != 'karyawan')
             <a href="{{ route('feedback.create') }}"
                class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-blue-700 transition">
                 <x-icon name="plus" class="w-4 h-4" /> Tambah Feedback
             </a>
+            @endif
         </div>
     </x-slot>
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6" x-data="{ q: '' }">
+        @php $canManage = Auth::user()->role != 'karyawan'; @endphp
 
         <div class="relative mb-5 max-w-sm">
             <x-icon name="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -29,8 +38,10 @@
                         <th class="px-4 py-3 text-left">Pemberi</th>
                         <th class="px-4 py-3 text-left">Penerima</th>
                         <th class="px-4 py-3 text-left">Feedback</th>
-                        <th class="px-4 py-3 text-left">Status</th>
+                        <th class="px-4 py-3 text-left {{ $canManage ? '' : 'rounded-r-lg' }}">Status</th>
+                        @if($canManage)
                         <th class="px-4 py-3 text-right rounded-r-lg">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
@@ -52,6 +63,7 @@
                             @endphp
                             <x-badge :color="$statusColor">{{ $feedback->status }}</x-badge>
                         </td>
+                        @if($canManage)
                         <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('feedback.edit', $feedback->id) }}"
@@ -69,10 +81,11 @@
                                 </form>
                             </div>
                         </td>
+                        @endif
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-8 text-center text-slate-400">Belum ada data feedback.</td>
+                        <td colspan="{{ $canManage ? 6 : 5 }}" class="px-4 py-8 text-center text-slate-400">Belum ada data feedback.</td>
                     </tr>
                     @endforelse
 
