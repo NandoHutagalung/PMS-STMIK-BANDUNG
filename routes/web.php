@@ -13,6 +13,8 @@ use App\Http\Controllers\CapaianController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\HasilEvaluasiController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\KpiTemplateController;
+use App\Http\Controllers\KpiNilaiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,6 +71,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('evaluasi', EvaluasiController::class);
     Route::resource('feedback', FeedbackController::class);
     Route::resource('capaian', CapaianController::class);
+
+    // ===== Struktur KPI baru (Input KPI Pegawai/Dosen & Input Nilai KPI) =====
+Route::resource('kpi-template', KpiTemplateController::class);
+Route::get('/kpi-nilai/get-template-items', [KpiNilaiController::class, 'getTemplateItems'])
+    ->name('kpi-nilai.get-template-items');
+Route::resource('kpi-nilai', KpiNilaiController::class)->except(['show']);
+Route::get('/kpi-nilai/{id}', [KpiNilaiController::class, 'show'])->name('kpi-nilai.show');
 
     Route::get(
     '/laporan/pdf',

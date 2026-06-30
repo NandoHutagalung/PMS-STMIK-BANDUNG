@@ -38,11 +38,23 @@
                 Data Karyawan
             </x-sidebar-link>
 
-            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian</p>
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Manajemen KPI</p>
 
-            <x-sidebar-link :href="url('/kpi')" icon="target" :active="request()->is('kpi*')">
-                KPI
-            </x-sidebar-link>
+<x-sidebar-link :href="url('/kpi-template')" icon="clipboard-check" :active="request()->is('kpi-template*')">
+    Input KPI Dosen / Pegawai
+</x-sidebar-link>
+
+<p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian KPI</p>
+
+<x-sidebar-link :href="url('/kpi-nilai')" icon="star" :active="request()->is('kpi-nilai*')">
+    Input Nilai KPI
+</x-sidebar-link>
+
+<p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian (Lama)</p>
+
+<x-sidebar-link :href="url('/kpi')" icon="target" :active="request()->is('kpi') || request()->is('kpi/*')">
+    KPI
+</x-sidebar-link>
 
             <x-sidebar-link :href="url('/periode')" icon="calendar" :active="request()->is('periode*')">
                 Periode
@@ -50,10 +62,6 @@
 
             <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
                 Evaluasi
-            </x-sidebar-link>
-
-            <x-sidebar-link :href="url('/feedback')" icon="chat" :active="request()->is('feedback*')">
-                Feedback
             </x-sidebar-link>
 
             <x-sidebar-link :href="url('/capaian')" icon="flag" :active="request()->is('capaian*')">
@@ -72,10 +80,6 @@
 
     <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
         Evaluasi
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/feedback')" icon="chat" :active="request()->is('feedback*')">
-        Feedback
     </x-sidebar-link>
 
     <x-sidebar-link :href="url('/laporan')" icon="document-text" :active="request()->is('laporan*')">
@@ -98,10 +102,6 @@
                 Capaian
             </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/feedback')" icon="chat" :active="request()->is('feedback*')">
-                Feedback
-            </x-sidebar-link>
-
             <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
                 Hasil Evaluasi
             </x-sidebar-link>
@@ -116,10 +116,6 @@
 
             <x-sidebar-link :href="url('/capaian')" icon="flag" :active="request()->is('capaian*')">
                 Capaian
-            </x-sidebar-link>
-
-            <x-sidebar-link :href="url('/feedback')" icon="chat" :active="request()->is('feedback*')">
-                Feedback
             </x-sidebar-link>
 
             <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">

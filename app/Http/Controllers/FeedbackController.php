@@ -9,62 +9,31 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        $feedbacks = Feedback::all();
-
-        return view('feedback.index', compact('feedbacks'));
+        abort(404);
     }
 
     public function create()
     {
-        return view('feedback.create');
+        abort(404);
     }
 
     public function store(Request $request)
     {
-        Feedback::create([
-
-            'pemberi_feedback' => $request->pemberi_feedback,
-            'penerima_feedback' => $request->penerima_feedback,
-
-            'feedback' => $request->feedback,
-            'status' => $request->status,
-
-        ]);
-
-        return redirect('/feedback')
-            ->with('success', 'Feedback berhasil ditambahkan');
+        abort(404);
     }
 
     public function edit($id)
     {
-        $feedback = Feedback::findOrFail($id);
-
-        return view('feedback.edit', compact('feedback'));
+        abort(404);
     }
 
     public function update(Request $request, $id)
     {
-        $feedback = Feedback::findOrFail($id);
-
-        $feedback->update([
-
-            'pemberi_feedback' => $request->pemberi_feedback,
-            'penerima_feedback' => $request->penerima_feedback,
-
-            'feedback' => $request->feedback,
-            'status' => $request->status,
-
-        ]);
-
-        return redirect('/feedback')
-            ->with('success', 'Feedback berhasil diupdate');
+        abort(404);
     }
 
     public function destroy($id)
     {
-        Feedback::findOrFail($id)->delete();
-
-        return redirect('/feedback')
-            ->with('success', 'Feedback berhasil dihapus');
+        abort(404);
     }
 }
