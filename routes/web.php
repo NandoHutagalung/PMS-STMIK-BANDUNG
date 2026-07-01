@@ -15,6 +15,7 @@ use App\Http\Controllers\HasilEvaluasiController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\KpiTemplateController;
 use App\Http\Controllers\KpiNilaiController;
+use App\Http\Controllers\KpiSayaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,6 +79,13 @@ Route::get('/kpi-nilai/get-template-items', [KpiNilaiController::class, 'getTemp
     ->name('kpi-nilai.get-template-items');
 Route::resource('kpi-nilai', KpiNilaiController::class)->except(['show']);
 Route::get('/kpi-nilai/{id}', [KpiNilaiController::class, 'show'])->name('kpi-nilai.show');
+
+// ===== KPI Saya (Dosen: lihat riwayat; Pegawai: input realisasi + lihat riwayat) =====
+Route::get('/kpi-saya', [KpiSayaController::class, 'index'])->name('kpi-saya.index');
+Route::get('/kpi-saya/show/{id}', [KpiSayaController::class, 'show'])->name('kpi-saya.show');
+Route::get('/kpi-saya/input', [KpiSayaController::class, 'inputForm'])->name('kpi-saya.input');
+Route::post('/kpi-saya/input', [KpiSayaController::class, 'inputStore'])->name('kpi-saya.input.store');
+Route::get('/kpi-saya/existing', [KpiSayaController::class, 'getMyExisting'])->name('kpi-saya.existing');
 
     Route::get(
     '/laporan/pdf',

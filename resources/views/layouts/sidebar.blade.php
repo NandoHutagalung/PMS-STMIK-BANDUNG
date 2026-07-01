@@ -94,35 +94,35 @@
 
         @if(Auth::user()->role == 'dosen')
 
-            <x-sidebar-link :href="url('/kpi')" icon="target" :active="request()->is('kpi*')">
-                KPI
-            </x-sidebar-link>
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-            <x-sidebar-link :href="url('/capaian')" icon="flag" :active="request()->is('capaian*')">
-                Capaian
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya*')">
+        KPI Saya
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-                Hasil Evaluasi
-            </x-sidebar-link>
+    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
+        Hasil Evaluasi
+    </x-sidebar-link>
 
-        @endif
+@endif
 
         @if(Auth::user()->role == 'karyawan')
 
-            <x-sidebar-link :href="url('/kpi')" icon="target" :active="request()->is('kpi*')">
-                KPI
-            </x-sidebar-link>
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-            <x-sidebar-link :href="url('/capaian')" icon="flag" :active="request()->is('capaian*')">
-                Capaian
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index')">
+        Riwayat Penilaian
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-                Hasil Evaluasi
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.input')" icon="flag" :active="request()->routeIs('kpi-saya.input')">
+        Input Realisasi
+    </x-sidebar-link>
 
-        @endif
+    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
+        Hasil Evaluasi
+    </x-sidebar-link>
+
+@endif
 
     </nav>
 
