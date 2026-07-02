@@ -40,89 +40,73 @@
 
             <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Manajemen KPI</p>
 
-<x-sidebar-link :href="url('/kpi-template')" icon="clipboard-check" :active="request()->is('kpi-template*')">
-    Input KPI Dosen / Pegawai
-</x-sidebar-link>
+            <x-sidebar-link :href="url('/kpi-template?kategori=Dosen')" icon="academic-cap" :active="request()->is('kpi-template*') && request('kategori') == 'Dosen'">
+                Input KPI Dosen
+            </x-sidebar-link>
 
-<p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian KPI</p>
+            <x-sidebar-link :href="url('/kpi-template?kategori=Pegawai')" icon="briefcase" :active="request()->is('kpi-template*') && request('kategori') != 'Dosen'">
+                Input KPI Pegawai
+            </x-sidebar-link>
 
-<x-sidebar-link :href="url('/kpi-nilai')" icon="star" :active="request()->is('kpi-nilai*')">
-    Input Nilai KPI
-</x-sidebar-link>
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian KPI</p>
 
-<p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Penilaian (Lama)</p>
+            <x-sidebar-link :href="url('/kpi-nilai')" icon="star" :active="request()->is('kpi-nilai*')">
+                Input Nilai KPI
+            </x-sidebar-link>
 
-<x-sidebar-link :href="url('/kpi')" icon="target" :active="request()->is('kpi') || request()->is('kpi/*')">
-    KPI
-</x-sidebar-link>
+            <x-sidebar-link :href="url('/kpi-approval')" icon="check-circle" :active="request()->is('kpi-approval*')">
+                Approval KPI
+            </x-sidebar-link>
+
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Pengaturan</p>
 
             <x-sidebar-link :href="url('/periode')" icon="calendar" :active="request()->is('periode*')">
                 Periode
-            </x-sidebar-link>
-
-            <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
-                Evaluasi
-            </x-sidebar-link>
-
-            <x-sidebar-link :href="url('/capaian')" icon="flag" :active="request()->is('capaian*')">
-                Capaian
-            </x-sidebar-link>
-
-            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Laporan</p>
-
-            <x-sidebar-link :href="url('/laporan')" icon="document-text" :active="request()->is('laporan*')">
-                Laporan
             </x-sidebar-link>
 
         @endif
 
         @if(Auth::user()->role == 'atasan')
 
-    <x-sidebar-link :href="url('/evaluasi')" icon="clipboard-check" :active="request()->is('evaluasi*')">
-        Evaluasi
-    </x-sidebar-link>
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Monitoring</p>
 
-    <x-sidebar-link :href="url('/laporan')" icon="document-text" :active="request()->is('laporan*')">
-        Laporan
-    </x-sidebar-link>
+            <x-sidebar-link :href="url('/monitoring')" icon="presentation" :active="request()->is('monitoring*')">
+                Monitoring
+            </x-sidebar-link>
 
-    <x-sidebar-link :href="url('/monitoring')" icon="presentation" :active="request()->is('monitoring*')">
-        Monitoring
-    </x-sidebar-link>
-
-@endif
+        @endif
 
         @if(Auth::user()->role == 'dosen')
 
-    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya*')">
-        KPI Saya
-    </x-sidebar-link>
+            <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya*')">
+                KPI Saya
+            </x-sidebar-link>
 
-    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-        Hasil Evaluasi
-    </x-sidebar-link>
+            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
+                Hasil Evaluasi
+            </x-sidebar-link>
 
-@endif
+        @endif
 
         @if(Auth::user()->role == 'karyawan')
 
-    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
+            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index')">
-        Riwayat Penilaian
-    </x-sidebar-link>
+            <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index')">
+                Riwayat Penilaian
+            </x-sidebar-link>
 
-    <x-sidebar-link :href="route('kpi-saya.input')" icon="flag" :active="request()->routeIs('kpi-saya.input')">
-        Input Realisasi
-    </x-sidebar-link>
+            <x-sidebar-link :href="route('kpi-saya.input')" icon="flag" :active="request()->routeIs('kpi-saya.input')">
+                Input Realisasi
+            </x-sidebar-link>
 
-    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-        Hasil Evaluasi
-    </x-sidebar-link>
+            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
+                Hasil Evaluasi
+            </x-sidebar-link>
 
-@endif
+        @endif
 
     </nav>
 

@@ -215,7 +215,7 @@
                     }
 
                     try {
-                        const res = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai=${encodeURIComponent(this.kategori)}&jabatan=${encodeURIComponent(this.jabatan)}`);
+                        const res = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai=${encodeURIComponent(this.kategori)}&jabatan=${encodeURIComponent(this.jabatan)}&pegawai_nama=${encodeURIComponent(this.pegawaiNama)}`);
                         const data = await res.json();
                         this.templateId = data.template_id;
                         this.items = (data.items || []).map(i => ({

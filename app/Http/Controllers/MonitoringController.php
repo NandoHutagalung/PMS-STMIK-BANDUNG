@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Karyawan;
-use App\Models\Evaluasi;
-use App\Models\Capaian;
-use App\Models\Feedback;
+use App\Models\KpiNilai;
 
 class MonitoringController extends Controller
 {
@@ -14,31 +12,32 @@ class MonitoringController extends Controller
     {
         $totalDosen = Dosen::count();
         $totalKaryawan = Karyawan::count();
-        $totalEvaluasi = Evaluasi::count();
-        $totalCapaian = Capaian::count();
-        $totalFeedback = Feedback::count();
 
-        $evaluasiTerbaik =
-            Evaluasi::orderByDesc('nilai')
-            ->take(5)
+        $totalPenilaianFinal = KpiNilai::where('status', 'final')->count();
+        $totalMenungguVerifikasi = KpiNilai::where('status', 'Menunggu Verifikasi')->count();
+
+        $rataRataNilai = KpiNilai::where('status', 'final')->avg('total_nilai');
+
+        $nilaiTerbaik = KpiNilai::where('status', 'final')
+            ->whereNotNull('total_nilai')
+            ->orderByDesc('total_nilai')
+            ->limit(5)
             ->get();
 
-        $evaluasiTerendah =
-            Evaluasi::orderBy('nilai')
-            ->take(5)
+        $nilaiTerendah = KpiNilai::where('status', 'final')
+            ->whereNotNull('total_nilai')
+            ->orderBy('total_nilai')
+            ->limit(5)
             ->get();
 
-        return view(
-            'monitoring.index',
-            compact(
-                'totalDosen',
-                'totalKaryawan',
-                'totalEvaluasi',
-                'totalCapaian',
-                'totalFeedback',
-                'evaluasiTerbaik',
-                'evaluasiTerendah'
-            )
-        );
+        return view('monitoring.index', compact(
+            'totalDosen',
+            'totalKaryawan',
+            'totalPenilaianFinal',
+            'totalMenungguVerifikasi',
+            'rataRataNilai',
+            'nilaiTerbaik',
+            'nilaiTerendah'
+        ));
     }
 }

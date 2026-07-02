@@ -6,14 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class KpiTemplate extends Model
 {
-    protected $fillable = [
-        'periode_id',
-        'kategori_pegawai',
-        'unit_kerja',
-        'jabatan',
-        'semester',
-        'status',
-    ];
+protected $fillable = [
+    'periode_id',
+    'kategori_pegawai',
+    'pegawai_id',
+    'pegawai_nama',
+    'unit_kerja',
+    'jabatan',
+    'semester',
+    'status',
+    'catatan_approval',
+    'disetujui_oleh',
+    'disetujui_at',
+];
 
     public function periode()
     {

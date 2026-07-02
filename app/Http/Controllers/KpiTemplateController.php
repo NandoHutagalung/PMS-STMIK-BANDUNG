@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
+use App\Models\Karyawan;
 use App\Models\KpiTemplate;
 use App\Models\KpiTemplateItem;
 use App\Models\Periode;
@@ -9,18 +11,28 @@ use Illuminate\Http\Request;
 
 class KpiTemplateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $templates = KpiTemplate::with('periode')->latest()->get();
+        $kategoriFilter = $request->query('kategori', 'Pegawai');
 
-        return view('kpi-template.index', compact('templates'));
+        $templates = KpiTemplate::with('periode')
+            ->where('kategori_pegawai', $kategoriFilter)
+            ->latest()
+            ->get();
+
+        return view('kpi-template.index', compact('templates', 'kategoriFilter'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $periodes = Periode::all();
+        $kategoriTerpilih = $request->query('kategori', 'Pegawai');
 
-        return view('kpi-template.create', compact('periodes'));
+        $daftarNama = $kategoriTerpilih == 'Dosen'
+            ? Dosen::orderBy('nama')->pluck('nama')
+            : Karyawan::orderBy('nama')->pluck('nama');
+
+        return view('kpi-template.create', compact('periodes', 'kategoriTerpilih', 'daftarNama'));
     }
 
     public function store(Request $request)
@@ -28,6 +40,7 @@ class KpiTemplateController extends Controller
         $request->validate([
             'periode_id' => 'required|exists:periodes,id',
             'kategori_pegawai' => 'required|string',
+            'pegawai_nama' => 'nullable|string',
             'unit_kerja' => 'required|string',
             'jabatan' => 'required|string',
             'semester' => 'nullable|string',
@@ -46,6 +59,7 @@ class KpiTemplateController extends Controller
         $template = KpiTemplate::create([
             'periode_id' => $request->periode_id,
             'kategori_pegawai' => $request->kategori_pegawai,
+            'pegawai_nama' => $request->pegawai_nama ?: null,
             'unit_kerja' => $request->unit_kerja,
             'jabatan' => $request->jabatan,
             'semester' => $request->semester,
@@ -64,7 +78,7 @@ class KpiTemplateController extends Controller
             ]);
         }
 
-        return redirect()->route('kpi-template.index')
+        return redirect()->route('kpi-template.index', ['kategori' => $template->kategori_pegawai])
             ->with('success', 'KPI berhasil disimpan');
     }
 
@@ -73,7 +87,11 @@ class KpiTemplateController extends Controller
         $template = KpiTemplate::with('items')->findOrFail($id);
         $periodes = Periode::all();
 
-        return view('kpi-template.edit', compact('template', 'periodes'));
+        $daftarNama = $template->kategori_pegawai == 'Dosen'
+            ? Dosen::orderBy('nama')->pluck('nama')
+            : Karyawan::orderBy('nama')->pluck('nama');
+
+        return view('kpi-template.edit', compact('template', 'periodes', 'daftarNama'));
     }
 
     public function update(Request $request, $id)
@@ -83,6 +101,7 @@ class KpiTemplateController extends Controller
         $request->validate([
             'periode_id' => 'required|exists:periodes,id',
             'kategori_pegawai' => 'required|string',
+            'pegawai_nama' => 'nullable|string',
             'unit_kerja' => 'required|string',
             'jabatan' => 'required|string',
             'semester' => 'nullable|string',
@@ -101,13 +120,13 @@ class KpiTemplateController extends Controller
         $template->update([
             'periode_id' => $request->periode_id,
             'kategori_pegawai' => $request->kategori_pegawai,
+            'pegawai_nama' => $request->pegawai_nama ?: null,
             'unit_kerja' => $request->unit_kerja,
             'jabatan' => $request->jabatan,
             'semester' => $request->semester,
             'status' => $request->status ?? $template->status,
         ]);
 
-        // Ganti seluruh item lama dengan yang baru (lebih sederhana & aman untuk form dinamis)
         $template->items()->delete();
 
         foreach ($request->aspek as $i => $aspek) {
@@ -122,15 +141,17 @@ class KpiTemplateController extends Controller
             ]);
         }
 
-        return redirect()->route('kpi-template.index')
+        return redirect()->route('kpi-template.index', ['kategori' => $template->kategori_pegawai])
             ->with('success', 'KPI berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        KpiTemplate::findOrFail($id)->delete();
+        $template = KpiTemplate::findOrFail($id);
+        $kategori = $template->kategori_pegawai;
+        $template->delete();
 
-        return redirect()->route('kpi-template.index')
+        return redirect()->route('kpi-template.index', ['kategori' => $kategori])
             ->with('success', 'KPI berhasil dihapus');
     }
 }

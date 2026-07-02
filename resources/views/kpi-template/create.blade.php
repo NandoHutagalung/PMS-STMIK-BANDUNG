@@ -14,14 +14,24 @@
             <x-card title="Form Input KPI" subtitle="Tentukan kategori, unit kerja, jabatan, dan periode." icon="presentation">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div>
-                        <x-input-label for="kategori_pegawai" value="Kategori Pegawai" />
-                        <select id="kategori_pegawai" name="kategori_pegawai"
-                                class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
-                            <option value="Dosen" {{ old('kategori_pegawai') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                            <option value="Pegawai" {{ old('kategori_pegawai') == 'Pegawai' ? 'selected' : '' }}>Pegawai</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('kategori_pegawai')" class="mt-1.5" />
+                    <x-input-label value="Kategori" />
+                    <div class="w-full border border-gray-200 bg-gray-50 rounded-lg shadow-sm text-sm px-3 py-2.5 font-semibold text-slate-600">
+                        {{ $kategoriTerpilih }}
                     </div>
+                    <input type="hidden" name="kategori_pegawai" value="{{ $kategoriTerpilih }}">
+                </div>
+
+                <div>
+                    <x-input-label for="pegawai_nama" value="Nama yang Akan Dinilai" />
+                    <select id="pegawai_nama" name="pegawai_nama"
+                            class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+                        <option value="">-- Semua {{ $kategoriTerpilih }} dengan Jabatan ini --</option>
+                        @foreach($daftarNama as $nama)
+                            <option value="{{ $nama }}" {{ old('pegawai_nama') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                        @endforeach
+                    </select>
+                    <p class="text-xs text-slate-400 mt-1">Kosongkan jika KPI ini berlaku untuk semua {{ strtolower($kategoriTerpilih) }} dengan jabatan yang sama.</p>
+                </div>
 
                     <div>
                         <x-input-label for="unit_kerja" value="Unit Kerja" />

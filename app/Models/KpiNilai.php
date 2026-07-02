@@ -9,18 +9,19 @@ class KpiNilai extends Model
     protected $table = 'kpi_nilai';
 
     protected $fillable = [
-        'periode_id',
-        'kpi_template_id',
-        'kategori_pegawai',
-        'pegawai_id',
-        'pegawai_nama',
-        'departemen',
-        'jabatan',
-        'catatan',
-        'total_nilai',
-        'status',
-        'penilai',
-    ];
+    'periode_id',
+    'kpi_template_id',
+    'kategori_pegawai',
+    'pegawai_id',
+    'pegawai_nama',
+    'departemen',
+    'jabatan',
+    'catatan',
+    'catatan_approval',
+    'total_nilai',
+    'status',
+    'penilai',
+];
 
     public function periode()
     {
@@ -52,5 +53,15 @@ class KpiNilai extends Model
         }
 
         return 'Perlu Perbaikan';
+    }
+
+    public function getStatusColorAttribute()
+    {
+        return match($this->status) {
+            'final' => 'green',
+            'Ditolak' => 'red',
+            'Menunggu Verifikasi' => 'amber',
+            default => 'gray',
+        };
     }
 }

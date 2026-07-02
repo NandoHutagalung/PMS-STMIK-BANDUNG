@@ -3,12 +3,12 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-slate-800">Input KPI Dosen / Pegawai</h2>
-                <p class="text-sm text-slate-500 mt-1">Daftar template KPI berdasarkan jabatan dan periode.</p>
+                <h2 class="text-2xl font-bold text-slate-800">Input KPI {{ $kategoriFilter }}</h2>
+                <p class="text-sm text-slate-500 mt-1">Daftar template KPI {{ strtolower($kategoriFilter) }} berdasarkan jabatan dan periode.</p>
             </div>
-            <a href="{{ route('kpi-template.create') }}"
+            <a href="{{ route('kpi-template.create', ['kategori' => $kategoriFilter]) }}"
                class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-blue-700 transition">
-                <x-icon name="plus" class="w-4 h-4" /> Tambah KPI
+                <x-icon name="plus" class="w-4 h-4" /> Tambah KPI {{ $kategoriFilter }}
             </a>
         </div>
     </x-slot>
@@ -27,7 +27,7 @@
                     <tr class="bg-blue-50 text-blue-900 text-xs uppercase tracking-wide">
                         <th class="px-4 py-3 text-left rounded-l-lg">No</th>
                         <th class="px-4 py-3 text-left">Periode</th>
-                        <th class="px-4 py-3 text-left">Kategori</th>
+                        <th class="px-4 py-3 text-left">Nama</th>
                         <th class="px-4 py-3 text-left">Unit Kerja</th>
                         <th class="px-4 py-3 text-left">Jabatan</th>
                         <th class="px-4 py-3 text-left">Jumlah Indikator</th>
@@ -41,8 +41,14 @@
                     @forelse($templates as $template)
                     <tr x-show="!q || $el.innerText.toLowerCase().includes(q.toLowerCase())" class="hover:bg-blue-50/40">
                         <td class="px-4 py-3 text-slate-500">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3 text-slate-600">{{ $template->periode->nama_periode ?? '-' }}</td>
-                        <td class="px-4 py-3 text-slate-600">{{ $template->kategori_pegawai }}</td>
+<td class="px-4 py-3 text-slate-600">{{ $template->periode->nama_periode ?? '-' }}</td>
+                        <td class="px-4 py-3 font-medium text-slate-700">
+                            @if($template->pegawai_nama)
+                                {{ $template->pegawai_nama }}
+                            @else
+                                <span class="text-slate-400 italic">Semua (per Jabatan)</span>
+                            @endif
+                        </td>
                         <td class="px-4 py-3 text-slate-600">{{ $template->unit_kerja }}</td>
                         <td class="px-4 py-3 font-medium text-slate-700">{{ $template->jabatan }}</td>
                         <td class="px-4 py-3 text-slate-600">{{ $template->items->count() }}</td>

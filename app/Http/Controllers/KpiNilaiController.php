@@ -29,14 +29,29 @@ class KpiNilaiController extends Controller
     }
 
     // Dipanggil via AJAX/GET saat memilih kategori+pegawai+periode, untuk mengambil daftar indikator dari template KPI
-    public function getTemplateItems(Request $request)
+public function getTemplateItems(Request $request)
     {
-        $template = KpiTemplate::with('items')
+        $base = KpiTemplate::with('items')
             ->where('periode_id', $request->periode_id)
             ->where('kategori_pegawai', $request->kategori_pegawai)
-            ->where('jabatan', $request->jabatan)
-            ->latest()
-            ->first();
+            ->where('jabatan', $request->jabatan);
+
+        $template = null;
+
+        // 1. Cari dulu template yang ditujukan spesifik untuk nama ini
+        if ($request->filled('pegawai_nama')) {
+            $template = (clone $base)->where('pegawai_nama', $request->pegawai_nama)->latest()->first();
+        }
+
+        // 2. Kalau tidak ada, pakai template umum (berlaku untuk semua jabatan yang sama)
+        if (!$template) {
+            $template = (clone $base)->whereNull('pegawai_nama')->latest()->first();
+        }
+
+        // 3. Fallback data lama (sebelum kolom pegawai_nama ada)
+        if (!$template) {
+            $template = $base->latest()->first();
+        }
 
         if (!$template) {
             return response()->json(['items' => [], 'template_id' => null]);
@@ -164,4 +179,5 @@ class KpiNilaiController extends Controller
         return redirect()->route('kpi-nilai.index')
             ->with('success', 'Nilai KPI berhasil dihapus');
     }
+
 }
