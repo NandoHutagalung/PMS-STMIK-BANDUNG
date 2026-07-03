@@ -12,6 +12,8 @@ use App\Http\Controllers\KpiNilaiController;
 use App\Http\Controllers\KpiSayaController;
 use App\Http\Controllers\KpiApprovalController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KpiMasterController;
+use App\Http\Controllers\KpiTargetController;
 
 use App\Models\Dosen;
 use App\Models\Karyawan;
@@ -45,11 +47,26 @@ Route::middleware('auth')->group(function () {
     // ===== Manajemen KPI (template per jabatan/individu) =====
     Route::resource('kpi-template', KpiTemplateController::class);
 
-    // ===== Penilaian KPI (input nilai oleh admin) =====
+    // ===== Master KPI (Sasaran Strategis, Kategori, Indikator, Bobot) =====
+Route::get('/kpi-master/{tipe}', [KpiMasterController::class, 'index'])->name('kpi-master.index');
+Route::get('/kpi-master/{tipe}/create', [KpiMasterController::class, 'create'])->name('kpi-master.create');
+Route::post('/kpi-master/{tipe}', [KpiMasterController::class, 'store'])->name('kpi-master.store');
+Route::get('/kpi-master/{tipe}/{id}/edit', [KpiMasterController::class, 'edit'])->name('kpi-master.edit');
+Route::put('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'update'])->name('kpi-master.update');
+Route::delete('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'destroy'])->name('kpi-master.destroy');
+
+// ===== Target KPI (Individu, Departemen, Institusi) =====
+Route::get('/kpi-target/{slug}', [KpiTargetController::class, 'index'])->name('kpi-target.index');
+Route::get('/kpi-target/{slug}/create', [KpiTargetController::class, 'create'])->name('kpi-target.create');
+Route::post('/kpi-target/{slug}', [KpiTargetController::class, 'store'])->name('kpi-target.store');
+Route::get('/kpi-target/{slug}/{id}/edit', [KpiTargetController::class, 'edit'])->name('kpi-target.edit');
+Route::put('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'update'])->name('kpi-target.update');
+Route::delete('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'destroy'])->name('kpi-target.destroy');
+
+
+// ===== Sumber indikator KPI (dipakai bersama oleh Input Realisasi karyawan) =====
     Route::get('/kpi-nilai/get-template-items', [KpiNilaiController::class, 'getTemplateItems'])
         ->name('kpi-nilai.get-template-items');
-    Route::resource('kpi-nilai', KpiNilaiController::class)->except(['show']);
-    Route::get('/kpi-nilai/{id}', [KpiNilaiController::class, 'show'])->name('kpi-nilai.show');
 
     // ===== Approval KPI (satu pintu: template & nilai) =====
     Route::get('/kpi-approval', [KpiApprovalController::class, 'index'])->name('kpi-approval.index');

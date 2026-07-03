@@ -104,14 +104,14 @@
                                 <tr>
                                     <td class="px-3 py-2 text-slate-500" x-text="index + 1"></td>
                                     <td class="px-3 py-2">
-                                        <input type="text" :name="'aspek[' + index + ']'" x-model="row.aspek"
-                                               class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm"
-                                               placeholder="Kinerja Utama">
+                                        <input type="text" :name="'aspek[' + index + ']'" x-model="row.aspek" list="daftarAspek"
+       class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm"
+       placeholder="Kinerja Utama">
                                     </td>
                                     <td class="px-3 py-2">
-                                        <input type="text" :name="'indikator[' + index + ']'" x-model="row.indikator"
-                                               class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm"
-                                               placeholder="Melaporkan data semesteran">
+                                        <input type="text" :name="'indikator[' + index + ']'" x-model="row.indikator" list="daftarIndikator"
+       class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm"
+       placeholder="Melaporkan data semesteran">
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="text" :name="'deskripsi[' + index + ']'" x-model="row.deskripsi"
@@ -128,8 +128,8 @@
                                                placeholder="persen / hari">
                                     </td>
                                     <td class="px-3 py-2">
-                                        <input type="number" step="0.01" :name="'bobot[' + index + ']'" x-model.number="row.bobot"
-                                               class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+                                    <input type="number" step="0.01" :name="'bobot[' + index + ']'" x-model.number="row.bobot" list="daftarBobot"
+       class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                                     </td>
                                     <td class="px-3 py-2 text-right">
                                         <button type="button" @click="removeRow(index)"
@@ -207,5 +207,23 @@
             }
         }
     </script>
+
+    <datalist id="daftarAspek">
+        @foreach($daftarAspek as $a)
+        <option value="{{ $a }}">
+        @endforeach
+    </datalist>
+    <datalist id="daftarIndikator">
+        @foreach($daftarIndikator as $i)
+        <option value="{{ $i }}">
+        @endforeach
+    </datalist>
+    <datalist id="daftarBobot">
+        @foreach($daftarBobot as $b)
+        <option value="{{ $b }}">
+        @endforeach
+    </datalist>
+
+</x-app-layout>
 
 </x-app-layout>

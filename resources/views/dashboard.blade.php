@@ -57,8 +57,8 @@
                         @endif
                     </x-card>
 
-                    <x-card title="Rata-rata Nilai: Dosen vs Pegawai" icon="target">
-                        @if($rataRataDosen || $rataRataPegawai)
+                    <x-card title="Rata-rata Nilai: Dosen vs Karyawan" icon="target">
+                        @if($rataRataDosen || $rataRataKaryawan)
                         <div style="height:260px;">
                             <canvas id="chartKategori"></canvas>
                         </div>
@@ -170,7 +170,7 @@
 
     </div>
 
-    @if(Auth::user()->role == 'admin' && (array_sum($distribusiPredikat) > 0 || $rataRataDosen || $rataRataPegawai))
+    @if(Auth::user()->role == 'admin' && (array_sum($distribusiPredikat) > 0 || $rataRataDosen || $rataRataKaryawan))
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         @if(array_sum($distribusiPredikat) > 0)
@@ -196,14 +196,14 @@
         });
         @endif
 
-        @if($rataRataDosen || $rataRataPegawai)
+@if($rataRataDosen || $rataRataKaryawan)
         new Chart(document.getElementById('chartKategori'), {
             type: 'bar',
             data: {
-                labels: ['Dosen', 'Pegawai'],
+                labels: ['Dosen', 'Karyawan'],
                 datasets: [{
                     label: 'Rata-rata Nilai (%)',
-                    data: [{{ $rataRataDosen ?? 0 }}, {{ $rataRataPegawai ?? 0 }}],
+                    data: [{{ $rataRataDosen ?? 0 }}, {{ $rataRataKaryawan ?? 0 }}],
                     backgroundColor: ['#2563eb', '#0d9488'],
                     borderRadius: 8,
                     maxBarThickness: 60,

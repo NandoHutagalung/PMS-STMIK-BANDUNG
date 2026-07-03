@@ -13,7 +13,7 @@ class KpiSayaController extends Controller
 {
     private function kategoriUser()
     {
-        return auth()->user()->role === 'dosen' ? 'Dosen' : 'Pegawai';
+        return auth()->user()->role === 'dosen' ? 'Dosen' : 'Karyawan';
     }
 
     public function index()
@@ -60,7 +60,7 @@ class KpiSayaController extends Controller
 
         $existing = KpiNilai::with('items')
             ->where('periode_id', $request->periode_id)
-            ->where('kategori_pegawai', 'Pegawai')
+            ->where('kategori_pegawai', 'Karyawan')
             ->where('pegawai_nama', $user->name)
             ->first();
 
@@ -96,7 +96,7 @@ class KpiSayaController extends Controller
         ]);
 
         $existing = KpiNilai::where('periode_id', $request->periode_id)
-            ->where('kategori_pegawai', 'Pegawai')
+            ->where('kategori_pegawai', 'Karyawan')
             ->where('pegawai_nama', $user->name)
             ->first();
 
@@ -114,7 +114,7 @@ class KpiSayaController extends Controller
             $kpiNilai = new KpiNilai();
             $kpiNilai->periode_id = $request->periode_id;
             $kpiNilai->kpi_template_id = $request->kpi_template_id;
-            $kpiNilai->kategori_pegawai = 'Pegawai';
+            $kpiNilai->kategori_pegawai = 'Karyawan';
             $kpiNilai->pegawai_id = $karyawan->id;
             $kpiNilai->pegawai_nama = $user->name;
             $kpiNilai->departemen = $karyawan->departemen;

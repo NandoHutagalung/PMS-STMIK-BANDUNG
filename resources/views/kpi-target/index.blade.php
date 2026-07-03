@@ -3,16 +3,12 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-slate-800">Penilaian KPI</h2>
-                <p class="text-sm text-slate-500 mt-1">
-                    Daftar nilai pencapaian KPI dosen dan pegawai.
-                    Untuk verifikasi nilai yang menunggu, buka
-                    <a href="{{ route('kpi-approval.index') }}" class="text-blue-600 font-semibold hover:underline">menu Approval KPI</a>.
-                </p>
+                <h2 class="text-2xl font-bold text-slate-800">Target KPI {{ $level }}</h2>
+                <p class="text-sm text-slate-500 mt-1">Kelola target kinerja tingkat {{ strtolower($level) }}.</p>
             </div>
-            <a href="{{ route('kpi-nilai.create') }}"
+            <a href="{{ route('kpi-target.create', $slug) }}"
                class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-blue-700 transition">
-                <x-icon name="plus" class="w-4 h-4" /> Input Nilai
+                <x-icon name="plus" class="w-4 h-4" /> Tambah Target
             </a>
         </div>
     </x-slot>
@@ -21,7 +17,7 @@
 
         <div class="relative mb-5 max-w-sm">
             <x-icon name="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input type="text" x-model="q" placeholder="Cari nama pegawai..."
+            <input type="text" x-model="q" placeholder="Cari target..."
                    class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500">
         </div>
 
@@ -31,31 +27,37 @@
                     <tr class="bg-blue-50 text-blue-900 text-xs uppercase tracking-wide">
                         <th class="px-4 py-3 text-left rounded-l-lg">No</th>
                         <th class="px-4 py-3 text-left">Periode</th>
-                        <th class="px-4 py-3 text-left">Kategori</th>
-                        <th class="px-4 py-3 text-left">Nama</th>
-                        <th class="px-4 py-3 text-left">Jabatan</th>
-                        <th class="px-4 py-3 text-left">Total Nilai</th>
-                        <th class="px-4 py-3 text-left">Predikat</th>
-                        <th class="px-4 py-3 text-left">Status</th>
+                        @if($level != 'Institusi')
+                        <th class="px-4 py-3 text-left">{{ $level == 'Individu' ? 'Nama' : 'Departemen' }}</th>
+                        @endif
+                        <th class="px-4 py-3 text-left">Sasaran Strategis</th>
+                        <th class="px-4 py-3 text-left">Nama Target</th>
+                        <th class="px-4 py-3 text-left">Target</th>
                         <th class="px-4 py-3 text-right rounded-r-lg">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
 
-                    @forelse($nilais as $nilai)
+                    @forelse($targets as $target)
                     <tr x-show="!q || $el.innerText.toLowerCase().includes(q.toLowerCase())" class="hover:bg-blue-50/40">
-                            <td class="px-4 py-3">
+                        <td class="px-4 py-3 text-slate-500">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3 text-slate-600">{{ $target->periode->nama_periode ?? '-' }}</td>
+                        @if($level != 'Institusi')
+                        <td class="px-4 py-3 font-medium text-slate-700">{{ $target->nama_entitas ?? '-' }}</td>
+                        @endif
+                        <td class="px-4 py-3 text-slate-600">{{ $target->sasaranStrategis->nama ?? '-' }}</td>
+                        <td class="px-4 py-3 text-slate-700">{{ $target->nama_target }}</td>
+                        <td class="px-4 py-3">
+                            <span class="font-semibold text-blue-600">{{ $target->target_nilai }} {{ $target->satuan }}</span>
+                        </td>
+                        <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-2">
-                                <a href="{{ route('kpi-nilai.show', $nilai->id) }}"
-                                   class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50">
-                                    <x-icon name="document-text" class="w-4 h-4" />
-                                </a>
-                                <a href="{{ route('kpi-nilai.edit', $nilai->id) }}"
+                                <a href="{{ route('kpi-target.edit', [$slug, $target->id]) }}"
                                    class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50">
                                     <x-icon name="pencil" class="w-4 h-4" />
                                 </a>
-                                <form action="{{ route('kpi-nilai.destroy', $nilai->id) }}" method="POST"
-                                      onsubmit="return confirm('Hapus data nilai KPI ini?');">
+                                <form action="{{ route('kpi-target.destroy', [$slug, $target->id]) }}" method="POST"
+                                      onsubmit="return confirm('Hapus target ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -68,7 +70,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="px-4 py-8 text-center text-slate-400">Belum ada data nilai KPI.</td>
+                        <td colspan="7" class="px-4 py-8 text-center text-slate-400">Belum ada target KPI {{ strtolower($level) }}.</td>
                     </tr>
                     @endforelse
 

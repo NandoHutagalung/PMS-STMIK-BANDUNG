@@ -206,7 +206,7 @@
                             this.loading = false;
                             return;
                         }
-                        const tmplRes = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai=Pegawai&jabatan=${encodeURIComponent(this.jabatan)}&pegawai_nama=${encodeURIComponent('{{ Auth::user()->name }}')}`);   
+                        const tmplRes = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai=Karyawan&jabatan=${encodeURIComponent(this.jabatan)}&pegawai_nama=${encodeURIComponent('{{ Auth::user()->name }}')}`);   
                         const tmplData = await tmplRes.json();
 
                         this.templateId = tmplData.template_id;

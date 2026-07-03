@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class KpiTemplateController extends Controller
 {
-    public function index(Request $request)
+public function index(Request $request)
     {
-        $kategoriFilter = $request->query('kategori', 'Pegawai');
+        $kategoriFilter = $request->query('kategori', 'Karyawan'); 
 
         $templates = KpiTemplate::with('periode')
             ->where('kategori_pegawai', $kategoriFilter)
@@ -23,18 +23,23 @@ class KpiTemplateController extends Controller
         return view('kpi-template.index', compact('templates', 'kategoriFilter'));
     }
 
-    public function create(Request $request)
+public function create(Request $request)
     {
         $periodes = Periode::all();
-        $kategoriTerpilih = $request->query('kategori', 'Pegawai');
+        $kategoriTerpilih = $request->query('kategori', 'Karyawan');
 
         $daftarNama = $kategoriTerpilih == 'Dosen'
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
-        return view('kpi-template.create', compact('periodes', 'kategoriTerpilih', 'daftarNama'));
-    }
+        $daftarAspek = \App\Models\KpiMaster::tipe('kategori')->orderBy('nama')->pluck('nama');
+        $daftarIndikator = \App\Models\KpiMaster::tipe('indikator')->orderBy('nama')->pluck('nama');
+        $daftarBobot = \App\Models\KpiMaster::tipe('bobot')->orderBy('nilai')->pluck('nilai');
 
+        return view('kpi-template.create', compact(
+            'periodes', 'kategoriTerpilih', 'daftarNama', 'daftarAspek', 'daftarIndikator', 'daftarBobot'
+        ));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -82,7 +87,7 @@ class KpiTemplateController extends Controller
             ->with('success', 'KPI berhasil disimpan');
     }
 
-    public function edit($id)
+public function edit($id)
     {
         $template = KpiTemplate::with('items')->findOrFail($id);
         $periodes = Periode::all();
@@ -91,7 +96,13 @@ class KpiTemplateController extends Controller
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
-        return view('kpi-template.edit', compact('template', 'periodes', 'daftarNama'));
+        $daftarAspek = \App\Models\KpiMaster::tipe('kategori')->orderBy('nama')->pluck('nama');
+        $daftarIndikator = \App\Models\KpiMaster::tipe('indikator')->orderBy('nama')->pluck('nama');
+        $daftarBobot = \App\Models\KpiMaster::tipe('bobot')->orderBy('nilai')->pluck('nilai');
+
+        return view('kpi-template.edit', compact(
+            'template', 'periodes', 'daftarNama', 'daftarAspek', 'daftarIndikator', 'daftarBobot'
+        ));
     }
 
     public function update(Request $request, $id)

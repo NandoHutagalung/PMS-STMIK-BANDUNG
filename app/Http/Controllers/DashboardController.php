@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
         // ===== Grafik Kinerja: rata-rata nilai per kategori =====
         $rataRataDosen = KpiNilai::where('status', 'final')->where('kategori_pegawai', 'Dosen')->avg('total_nilai');
-        $rataRataPegawai = KpiNilai::where('status', 'final')->where('kategori_pegawai', 'Pegawai')->avg('total_nilai');
+        $rataRataKaryawan = KpiNilai::where('status', 'final')->where('kategori_pegawai', 'Karyawan')->avg('total_nilai');
 
         // ===== Notifikasi =====
         $templateMenunggu = KpiTemplate::with('periode')
@@ -63,7 +63,7 @@ class DashboardController extends Controller
             'rataRataNilai',
             'distribusiPredikat',
             'rataRataDosen',
-            'rataRataPegawai',
+            'rataRataKaryawan',
             'templateMenunggu',
             'nilaiMenunggu'
         ));
