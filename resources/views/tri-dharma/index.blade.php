@@ -6,7 +6,7 @@
                 <h2 class="text-2xl font-bold text-slate-800">Tri Dharma Perguruan Tinggi</h2>
                 <p class="text-sm text-slate-500 mt-1">Catat kegiatan Pengajaran, Penelitian, Pengabdian, dan Penunjang.</p>
             </div>
-            <a href="{{ route('tri-dharma.create') }}"
+<a href="{{ route('tri-dharma.create') }}"
                class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-blue-700 transition">
                 <x-icon name="plus" class="w-4 h-4" /> Tambah Kegiatan
             </a>

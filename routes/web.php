@@ -6,7 +6,6 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\MonitoringController;
-use App\Http\Controllers\HasilEvaluasiController;
 use App\Http\Controllers\KpiTemplateController;
 use App\Http\Controllers\KpiNilaiController;
 use App\Http\Controllers\KpiSayaController;

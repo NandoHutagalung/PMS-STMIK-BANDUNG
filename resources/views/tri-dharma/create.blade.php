@@ -10,19 +10,14 @@
             @csrf
 
             <div>
-                <x-input-label value="Kategori" />
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
-                    @foreach(['Pengajaran' => 'academic-cap', 'Penelitian' => 'document-text', 'Pengabdian' => 'users', 'Penunjang' => 'briefcase'] as $kat => $icon)
-                    <label class="cursor-pointer">
-                        <input type="radio" name="kategori" value="{{ $kat }}" class="peer sr-only"
-                               {{ $kategoriTerpilih == $kat ? 'checked' : '' }}>
-                        <div class="flex flex-col items-center gap-1.5 rounded-xl border-2 border-gray-200 px-3 py-3 text-center peer-checked:border-blue-600 peer-checked:bg-blue-50 transition">
-                            <x-icon :name="$icon" class="w-5 h-5 text-blue-600" />
-                            <span class="text-xs font-semibold text-slate-700">{{ $kat }}</span>
-                        </div>
-                    </label>
-                    @endforeach
-                </div>
+                <x-input-label for="kategori" value="Kategori" />
+                <select id="kategori" name="kategori"
+                        class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+                    <option value="Pengajaran" {{ $kategoriTerpilih == 'Pengajaran' ? 'selected' : '' }}>Pengajaran</option>
+                    <option value="Penelitian" {{ $kategoriTerpilih == 'Penelitian' ? 'selected' : '' }}>Penelitian</option>
+                    <option value="Pengabdian" {{ $kategoriTerpilih == 'Pengabdian' ? 'selected' : '' }}>Pengabdian</option>
+                    <option value="Penunjang" {{ $kategoriTerpilih == 'Penunjang' ? 'selected' : '' }}>Penunjang</option>
+                </select>
                 <x-input-error :messages="$errors->get('kategori')" class="mt-1.5" />
             </div>
 

@@ -22,17 +22,17 @@
                     </div>
                     <div>
                         <x-input-label value="Jabatan" />
-                        <p class="text-sm font-semibold text-slate-700 mt-1">{{ $karyawan?->jabatan ?? '-' }}</p>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">{{ $entitas?->jabatan ?? '-' }}</p>
                     </div>
                     <div>
                         <x-input-label value="Departemen" />
-                        <p class="text-sm font-semibold text-slate-700 mt-1">{{ $karyawan?->departemen ?? '-' }}</p>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">{{ $entitas?->program_studi ?? $entitas?->departemen ?? '-' }}</p>
                     </div>
                 </div>
 
-                @if(!$karyawan)
+                @if(!$entitas)
                 <div class="mt-4 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
-                    Data karyawan untuk akun ini tidak ditemukan. Hubungi admin untuk mendaftarkan data karyawan dengan nama yang sama dengan akun login kamu.
+                    Data {{ strtolower($kategori) }} untuk akun ini tidak ditemukan. Hubungi admin untuk mendaftarkannya dengan nama yang sama dengan akun login kamu.
                 </div>
                 @endif
             </x-card>
@@ -59,7 +59,7 @@
 
                 <div x-show="periodeId && !loading && items.length === 0" x-cloak
                      class="mt-4 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-600">
-                    Belum ada template KPI untuk jabatan kamu (<strong>{{ $karyawan?->jabatan }}</strong>) pada periode ini.
+                    Belum ada template KPI untuk jabatan kamu (<strong>{{ $entitas?->jabatan }}</strong>) pada periode ini.
                     Silakan hubungi admin untuk membuat template KPI terlebih dahulu.
                 </div>
 
@@ -178,7 +178,7 @@
                 loading: false,
                 alreadySubmitted: false,
                 isVerified: false,
-                jabatan: '{{ $karyawan?->jabatan ?? '' }}',
+                jabatan: '{{ $entitas?->jabatan ?? '' }}',
 
                 async loadTemplate() {
                     this.items = [];
@@ -206,7 +206,7 @@
                             this.loading = false;
                             return;
                         }
-                        const tmplRes = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai=Karyawan&jabatan=${encodeURIComponent(this.jabatan)}&pegawai_nama=${encodeURIComponent('{{ Auth::user()->name }}')}`);   
+                        const tmplRes = await fetch(`{{ route('kpi-nilai.get-template-items') }}?periode_id=${this.periodeId}&kategori_pegawai={{ $kategori }}&jabatan=${encodeURIComponent(this.jabatan)}&pegawai_nama=${encodeURIComponent('{{ Auth::user()->name }}')}`);   
                         const tmplData = await tmplRes.json();
 
                         this.templateId = tmplData.template_id;
