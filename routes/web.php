@@ -14,6 +14,8 @@ use App\Http\Controllers\KpiApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KpiMasterController;
 use App\Http\Controllers\KpiTargetController;
+use App\Http\Controllers\TriDharmaController;
+use App\Http\Controllers\PengembanganSdmController;
 
 use App\Models\Dosen;
 use App\Models\Karyawan;
@@ -77,9 +79,16 @@ Route::delete('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'destroy']
     Route::post('/kpi-approval/nilai/{id}/approve', [KpiApprovalController::class, 'approveNilai'])->name('kpi-approval.approve-nilai');
     Route::post('/kpi-approval/nilai/{id}/reject', [KpiApprovalController::class, 'rejectNilai'])->name('kpi-approval.reject-nilai');
 
+    // ===== Tri Dharma Dosen =====
+    Route::resource('tri-dharma', TriDharmaController::class);
+
+    // ===== Pengembangan SDM Karyawan =====
+    Route::resource('pengembangan-sdm', PengembanganSdmController::class);
+
     // ===== KPI Saya (Dosen: lihat; Karyawan: input realisasi + lihat) =====
     Route::get('/kpi-saya', [KpiSayaController::class, 'index'])->name('kpi-saya.index');
     Route::get('/kpi-saya/show/{id}', [KpiSayaController::class, 'show'])->name('kpi-saya.show');
+    Route::get('/kpi-saya/grafik', [KpiSayaController::class, 'grafik'])->name('kpi-saya.grafik');
     Route::get('/kpi-saya/input', [KpiSayaController::class, 'inputForm'])->name('kpi-saya.input');
     Route::post('/kpi-saya/input', [KpiSayaController::class, 'inputStore'])->name('kpi-saya.input.store');
     Route::get('/kpi-saya/existing', [KpiSayaController::class, 'getMyExisting'])->name('kpi-saya.existing');

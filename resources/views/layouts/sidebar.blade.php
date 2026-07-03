@@ -100,37 +100,57 @@
 
         @endif
 
-        @if(Auth::user()->role == 'dosen')
+    @if(Auth::user()->role == 'dosen')
 
-            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Tri Dharma</p>
 
-            <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya*')">
-                KPI Saya
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('tri-dharma.index')" icon="document-text" :active="request()->routeIs('tri-dharma*')">
+        Tri Dharma
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-                Hasil Evaluasi
-            </x-sidebar-link>
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-        @endif
+    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index') || request()->routeIs('kpi-saya.show')">
+        Riwayat KPI
+    </x-sidebar-link>
+
+    <x-sidebar-link :href="route('kpi-saya.grafik')" icon="presentation" :active="request()->routeIs('kpi-saya.grafik')">
+        Grafik Kinerja
+    </x-sidebar-link>
+
+    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
+        Hasil Evaluasi
+    </x-sidebar-link>
+
+@endif
 
         @if(Auth::user()->role == 'karyawan')
 
-            <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Kinerja Saya</p>
 
-            <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index')">
-                Riwayat Penilaian
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.input')" icon="flag" :active="request()->routeIs('kpi-saya.input')">
+        Input Realisasi
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="route('kpi-saya.input')" icon="flag" :active="request()->routeIs('kpi-saya.input')">
-                Input Realisasi
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.index')" icon="target" :active="request()->routeIs('kpi-saya.index') || request()->routeIs('kpi-saya.show')">
+        Riwayat Penilaian
+    </x-sidebar-link>
 
-            <x-sidebar-link :href="url('/hasil-evaluasi')" icon="star" :active="request()->is('hasil-evaluasi*')">
-                Hasil Evaluasi
-            </x-sidebar-link>
+    <x-sidebar-link :href="route('kpi-saya.grafik')" icon="presentation" :active="request()->routeIs('kpi-saya.grafik')">
+        Grafik Kinerja
+    </x-sidebar-link>
 
-        @endif
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Pengembangan SDM</p>
+
+    <x-sidebar-link :href="route('pengembangan-sdm.index')" icon="star" :active="request()->routeIs('pengembangan-sdm*')">
+        Pengembangan SDM
+    </x-sidebar-link>
+
+    <x-sidebar-link :href="url('/hasil-evaluasi')" icon="check-circle" :active="request()->is('hasil-evaluasi*')">
+        Hasil Evaluasi
+    </x-sidebar-link>
+
+@endif
 
     </nav>
 

@@ -41,6 +41,52 @@ class KpiSayaController extends Controller
         return view('kpi-saya.show', compact('nilai'));
     }
 
+    public function grafik()
+    {
+        $user = auth()->user();
+        $kategori = $this->kategoriUser();
+
+        $riwayat = KpiNilai::with('periode')
+            ->where('kategori_pegawai', $kategori)
+            ->where('pegawai_nama', $user->name)
+            ->where('status', 'final')
+            ->get()
+            ->sortBy(function ($item) {
+                return $item->periode->tahun ?? 0;
+            })
+            ->values();
+
+        $labelPeriode = $riwayat->map(function ($item) {
+            return $item->periode->nama_periode ?? '-';
+        });
+
+        $nilaiPeriode = $riwayat->pluck('total_nilai');
+
+        $rataRata = $riwayat->avg('total_nilai');
+        $tertinggi = $riwayat->max('total_nilai');
+        $terendah = $riwayat->min('total_nilai');
+
+        // Rata-rata per indikator (untuk lihat kekuatan/kelemahan)
+        $rataPerIndikator = [];
+        foreach ($riwayat as $nilai) {
+            foreach ($nilai->items as $item) {
+                $key = $item->indikator;
+                if (!isset($rataPerIndikator[$key])) {
+                    $rataPerIndikator[$key] = ['total' => 0, 'count' => 0];
+                }
+                $rataPerIndikator[$key]['total'] += $item->nilai_persen;
+                $rataPerIndikator[$key]['count']++;
+            }
+        }
+        $rataPerIndikator = collect($rataPerIndikator)->map(function ($v) {
+            return round($v['total'] / $v['count'], 2);
+        });
+
+        return view('kpi-saya.grafik', compact(
+            'labelPeriode', 'nilaiPeriode', 'rataRata', 'tertinggi', 'terendah', 'rataPerIndikator', 'riwayat'
+        ));
+    }
+
     public function inputForm()
     {
         if (auth()->user()->role !== 'karyawan') {
