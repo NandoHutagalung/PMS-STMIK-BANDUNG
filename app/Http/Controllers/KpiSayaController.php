@@ -31,12 +31,12 @@ class KpiSayaController extends Controller
         return view('kpi-saya.index', compact('nilais', 'kategori'));
     }
 
-    public function grafik()
+public function grafik()
     {
         $user = auth()->user();
         $kategori = $this->kategoriUser();
 
-        $riwayat = KpiNilai::with('periode')
+        $riwayat = KpiNilai::with(['periode', 'items'])
             ->where('kategori_pegawai', $kategori)
             ->where('pegawai_nama', $user->name)
             ->whereIn('status', ['final', 'Menunggu Verifikasi'])
@@ -46,15 +46,32 @@ class KpiSayaController extends Controller
             })
             ->values();
 
-        $labels = $riwayat->map(function ($item) {
+        $labelPeriode = $riwayat->map(function ($item) {
             return $item->periode
                 ? $item->periode->nama_periode . ' ' . $item->periode->tahun
                 : '-';
         });
 
-        $nilai = $riwayat->pluck('total_nilai');
+        $nilaiPeriode = $riwayat->pluck('total_nilai');
 
-        return view('kpi-saya.grafik', compact('riwayat', 'labels', 'nilai', 'kategori'));
+        $rataRata = $nilaiPeriode->count() ? round($nilaiPeriode->avg(), 2) : 0;
+        $tertinggi = $nilaiPeriode->count() ? round($nilaiPeriode->max(), 2) : 0;
+        $terendah = $nilaiPeriode->count() ? round($nilaiPeriode->min(), 2) : 0;
+
+        // Collection dengan key = nama indikator, value = rata-rata nilai_persen
+        $rataPerIndikator = $riwayat
+            ->flatMap(function ($item) {
+                return $item->items;
+            })
+            ->groupBy('indikator')
+            ->map(function ($items) {
+                return round($items->avg('nilai_persen'), 2);
+            });
+
+        return view('kpi-saya.grafik', compact(
+            'riwayat', 'rataRata', 'tertinggi', 'terendah',
+            'labelPeriode', 'nilaiPeriode', 'rataPerIndikator'
+        ));
     }
 
     public function show($id)

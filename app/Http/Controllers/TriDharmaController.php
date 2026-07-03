@@ -128,4 +128,50 @@ class TriDharmaController extends Controller
         return redirect()->route('tri-dharma.index')
             ->with('success', 'Kegiatan Tri Dharma berhasil dihapus');
     }
+    private function pastikanAdmin()
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+    }
+
+    public function approvalIndex()
+    {
+        $this->pastikanAdmin();
+
+        $kegiatans = TriDharma::with('periode')
+            ->where('status', 'Diajukan')
+            ->latest()
+            ->get();
+
+        $riwayat = TriDharma::with('periode')
+            ->whereIn('status', ['Disetujui', 'Ditolak'])
+            ->latest()
+            ->take(20)
+            ->get();
+
+        return view('tri-dharma.approval', compact('kegiatans', 'riwayat'));
+    }
+
+    public function approve($id)
+    {
+        $this->pastikanAdmin();
+
+        $kegiatan = TriDharma::findOrFail($id);
+        $kegiatan->update(['status' => 'Disetujui']);
+
+        return redirect()->route('tri-dharma.approval')
+            ->with('success', 'Kegiatan Tri Dharma "' . $kegiatan->judul_kegiatan . '" disetujui.');
+    }
+
+    public function reject($id)
+    {
+        $this->pastikanAdmin();
+
+        $kegiatan = TriDharma::findOrFail($id);
+        $kegiatan->update(['status' => 'Ditolak']);
+
+        return redirect()->route('tri-dharma.approval')
+            ->with('success', 'Kegiatan Tri Dharma "' . $kegiatan->judul_kegiatan . '" ditolak.');
+    }
 }

@@ -59,20 +59,6 @@
     <x-sidebar-link :href="url('/periode')" icon="calendar" :active="request()->is('periode*')">
         Periode Penilaian
     </x-sidebar-link>
-
-    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Target KPI</p>
-
-    <x-sidebar-link :href="url('/kpi-target/individu')" icon="user-circle" :active="request()->is('kpi-target/individu*')">
-        Target Individu
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/kpi-target/departemen')" icon="building" :active="request()->is('kpi-target/departemen*')">
-        Target Departemen
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/kpi-target/institusi')" icon="flag" :active="request()->is('kpi-target/institusi*')">
-        Target Institusi
-    </x-sidebar-link>
     
 <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Input KPI</p>
 
@@ -86,6 +72,12 @@
 
     <x-sidebar-link :href="url('/kpi-approval')" icon="check-circle" :active="request()->is('kpi-approval*')">
         Approval KPI
+    </x-sidebar-link>
+
+    <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Tri Dharma</p>
+
+    <x-sidebar-link :href="route('tri-dharma.approval')" icon="document-text" :active="request()->routeIs('tri-dharma.approval')">
+        Approval Tri Dharma
     </x-sidebar-link>
 
 @endif

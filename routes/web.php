@@ -12,7 +12,6 @@ use App\Http\Controllers\KpiSayaController;
 use App\Http\Controllers\KpiApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KpiMasterController;
-use App\Http\Controllers\KpiTargetController;
 use App\Http\Controllers\TriDharmaController;
 use App\Http\Controllers\PengembanganSdmController;
 
@@ -56,14 +55,6 @@ Route::get('/kpi-master/{tipe}/{id}/edit', [KpiMasterController::class, 'edit'])
 Route::put('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'update'])->name('kpi-master.update');
 Route::delete('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'destroy'])->name('kpi-master.destroy');
 
-// ===== Target KPI (Individu, Departemen, Institusi) =====
-Route::get('/kpi-target/{slug}', [KpiTargetController::class, 'index'])->name('kpi-target.index');
-Route::get('/kpi-target/{slug}/create', [KpiTargetController::class, 'create'])->name('kpi-target.create');
-Route::post('/kpi-target/{slug}', [KpiTargetController::class, 'store'])->name('kpi-target.store');
-Route::get('/kpi-target/{slug}/{id}/edit', [KpiTargetController::class, 'edit'])->name('kpi-target.edit');
-Route::put('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'update'])->name('kpi-target.update');
-Route::delete('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'destroy'])->name('kpi-target.destroy');
-
 
 // ===== Sumber indikator KPI (dipakai bersama oleh Input Realisasi karyawan) =====
     Route::get('/kpi-nilai/get-template-items', [KpiNilaiController::class, 'getTemplateItems'])
@@ -77,6 +68,11 @@ Route::delete('/kpi-target/{slug}/{id}', [KpiTargetController::class, 'destroy']
     Route::get('/kpi-approval/nilai/{id}', [KpiApprovalController::class, 'showNilai'])->name('kpi-approval.show-nilai');
     Route::post('/kpi-approval/nilai/{id}/approve', [KpiApprovalController::class, 'approveNilai'])->name('kpi-approval.approve-nilai');
     Route::post('/kpi-approval/nilai/{id}/reject', [KpiApprovalController::class, 'rejectNilai'])->name('kpi-approval.reject-nilai');
+
+      // ===== Approval Tri Dharma (Admin) =====
+    Route::get('/tri-dharma-approval', [TriDharmaController::class, 'approvalIndex'])->name('tri-dharma.approval');
+    Route::post('/tri-dharma-approval/{id}/approve', [TriDharmaController::class, 'approve'])->name('tri-dharma.approve');
+    Route::post('/tri-dharma-approval/{id}/reject', [TriDharmaController::class, 'reject'])->name('tri-dharma.reject');
 
     // ===== Tri Dharma Dosen =====
     Route::resource('tri-dharma', TriDharmaController::class);
