@@ -40,22 +40,6 @@
 
     <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Manajemen KPI</p>
 
-    <x-sidebar-link :href="url('/kpi-master/sasaran-strategis')" icon="flag" :active="request()->is('kpi-master/sasaran-strategis*')">
-        Sasaran Strategis
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/kpi-master/indikator')" icon="target" :active="request()->is('kpi-master/indikator*')">
-        Indikator KPI
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/kpi-master/kategori')" icon="clipboard-check" :active="request()->is('kpi-master/kategori*')">
-        Kategori KPI
-    </x-sidebar-link>
-
-    <x-sidebar-link :href="url('/kpi-master/bobot')" icon="star" :active="request()->is('kpi-master/bobot*')">
-        Bobot KPI
-    </x-sidebar-link>
-
     <x-sidebar-link :href="url('/periode')" icon="calendar" :active="request()->is('periode*')">
         Periode Penilaian
     </x-sidebar-link>

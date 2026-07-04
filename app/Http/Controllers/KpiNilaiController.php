@@ -14,51 +14,47 @@ class KpiNilaiController extends Controller
         $jabatan     = trim($request->jabatan ?? '');
         $pegawaiNama = trim($request->pegawai_nama ?? '');
 
-        // Fallback 1: cocok periode + kategori + jabatan + nama spesifik
-        if ($pegawaiNama !== '' && $jabatan !== '') {
-            $template = KpiTemplate::with('items')
-                ->where('periode_id', $periodeId)
-                ->where('kategori_pegawai', $kategori)
-                ->whereRaw('LOWER(TRIM(jabatan)) = ?', [strtolower($jabatan)])
+        // Normalkan: Pegawai dan Karyawan dianggap sama
+        $kategoriList = $kategori === 'Pegawai'
+            ? ['Pegawai', 'Karyawan']
+            : [$kategori];
+
+        $base = KpiTemplate::with('items')
+            ->where('periode_id', $periodeId)
+            ->whereIn('kategori_pegawai', $kategoriList);
+
+        if ($jabatan !== '') {
+            $base->whereRaw('LOWER(TRIM(jabatan)) = ?', [strtolower($jabatan)]);
+        }
+
+        $template = null;
+
+        // 1. Cocok nama spesifik
+        if ($pegawaiNama !== '') {
+            $template = (clone $base)
                 ->whereRaw('LOWER(TRIM(COALESCE(pegawai_nama,""))) = ?', [strtolower($pegawaiNama)])
                 ->latest()->first();
-
-            if ($template) {
-                return response()->json(['items' => $template->items, 'template_id' => $template->id]);
-            }
         }
 
-        // Fallback 2: cocok periode + kategori + jabatan (template umum)
-        if ($jabatan !== '') {
-            $template = KpiTemplate::with('items')
-                ->where('periode_id', $periodeId)
-                ->where('kategori_pegawai', $kategori)
-                ->whereRaw('LOWER(TRIM(jabatan)) = ?', [strtolower($jabatan)])
+        // 2. Template umum (pegawai_nama kosong/null)
+        if (!$template) {
+            $template = (clone $base)
                 ->whereNull('pegawai_nama')
                 ->latest()->first();
-
-            if ($template) {
-                return response()->json(['items' => $template->items, 'template_id' => $template->id]);
-            }
-
-            // Fallback 3: cocok periode + kategori + jabatan (apapun nama_pegawainya)
-            $template = KpiTemplate::with('items')
-                ->where('periode_id', $periodeId)
-                ->where('kategori_pegawai', $kategori)
-                ->whereRaw('LOWER(TRIM(jabatan)) = ?', [strtolower($jabatan)])
-                ->latest()->first();
-
-            if ($template) {
-                return response()->json(['items' => $template->items, 'template_id' => $template->id]);
-            }
         }
 
-        // Fallback 4 (paling longgar): cocok periode + kategori saja
-        // Ini hanya dipakai kalau jabatan benar-benar tidak cocok sama sekali
-        $template = KpiTemplate::with('items')
-            ->where('periode_id', $periodeId)
-            ->where('kategori_pegawai', $kategori)
-            ->latest()->first();
+        // 3. Fallback: apapun nama_pegawainya asal periode+kategori+jabatan cocok
+        if (!$template) {
+            $template = (clone $base)->latest()->first();
+        }
+
+        // 4. Paling longgar: hanya cocok periode + kategori
+        if (!$template) {
+            $template = KpiTemplate::with('items')
+                ->where('periode_id', $periodeId)
+                ->whereIn('kategori_pegawai', $kategoriList)
+                ->latest()->first();
+        }
 
         if (!$template) {
             return response()->json(['items' => [], 'template_id' => null]);

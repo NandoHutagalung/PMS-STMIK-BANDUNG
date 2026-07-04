@@ -19,7 +19,7 @@
                         <div class="w-full border border-gray-200 bg-gray-50 rounded-lg shadow-sm text-sm px-3 py-2.5 font-semibold text-slate-600">
                             {{ $template->kategori_pegawai }}
                         </div>
-                        <input type="hidden" name="kategori_pegawai" value="{{ $template->kategori_pegawai }}">
+                        <input type="hidden" name="kategori_pegawai" value="{{ $template->kategori_pegawai === 'Pegawai' ? 'Karyawan' : $template->kategori_pegawai }}">
                     </div>
 
                     <div>
@@ -212,21 +212,5 @@
             }
         }
     </script>
-
-    <datalist id="daftarAspek">
-        @foreach($daftarAspek as $a)
-        <option value="{{ $a }}">
-        @endforeach
-    </datalist>
-    <datalist id="daftarIndikator">
-        @foreach($daftarIndikator as $i)
-        <option value="{{ $i }}">
-        @endforeach
-    </datalist>
-    <datalist id="daftarBobot">
-        @foreach($daftarBobot as $b)
-        <option value="{{ $b }}">
-        @endforeach
-    </datalist>
 
 </x-app-layout>

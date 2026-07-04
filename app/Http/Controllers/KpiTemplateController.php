@@ -32,13 +32,7 @@ public function create(Request $request)
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
-        $daftarAspek = \App\Models\KpiMaster::tipe('kategori')->orderBy('nama')->pluck('nama');
-        $daftarIndikator = \App\Models\KpiMaster::tipe('indikator')->orderBy('nama')->pluck('nama');
-        $daftarBobot = \App\Models\KpiMaster::tipe('bobot')->orderBy('nilai')->pluck('nilai');
-
-        return view('kpi-template.create', compact(
-            'periodes', 'kategoriTerpilih', 'daftarNama', 'daftarAspek', 'daftarIndikator', 'daftarBobot'
-        ));
+        return view('kpi-template.create', compact('periodes', 'kategoriTerpilih', 'daftarNama'));
     }
     public function store(Request $request)
     {
@@ -96,13 +90,7 @@ public function edit($id)
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
-        $daftarAspek = \App\Models\KpiMaster::tipe('kategori')->orderBy('nama')->pluck('nama');
-        $daftarIndikator = \App\Models\KpiMaster::tipe('indikator')->orderBy('nama')->pluck('nama');
-        $daftarBobot = \App\Models\KpiMaster::tipe('bobot')->orderBy('nilai')->pluck('nilai');
-
-        return view('kpi-template.edit', compact(
-            'template', 'periodes', 'daftarNama', 'daftarAspek', 'daftarIndikator', 'daftarBobot'
-        ));
+        return view('kpi-template.edit', compact('template', 'periodes', 'daftarNama'));
     }
 
     public function update(Request $request, $id)

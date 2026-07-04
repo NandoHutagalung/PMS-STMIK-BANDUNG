@@ -11,7 +11,6 @@ use App\Http\Controllers\KpiNilaiController;
 use App\Http\Controllers\KpiSayaController;
 use App\Http\Controllers\KpiApprovalController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KpiMasterController;
 use App\Http\Controllers\TriDharmaController;
 use App\Http\Controllers\PengembanganSdmController;
 
@@ -46,14 +45,6 @@ Route::middleware('auth')->group(function () {
 
     // ===== Manajemen KPI (template per jabatan/individu) =====
     Route::resource('kpi-template', KpiTemplateController::class);
-
-    // ===== Master KPI (Sasaran Strategis, Kategori, Indikator, Bobot) =====
-Route::get('/kpi-master/{tipe}', [KpiMasterController::class, 'index'])->name('kpi-master.index');
-Route::get('/kpi-master/{tipe}/create', [KpiMasterController::class, 'create'])->name('kpi-master.create');
-Route::post('/kpi-master/{tipe}', [KpiMasterController::class, 'store'])->name('kpi-master.store');
-Route::get('/kpi-master/{tipe}/{id}/edit', [KpiMasterController::class, 'edit'])->name('kpi-master.edit');
-Route::put('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'update'])->name('kpi-master.update');
-Route::delete('/kpi-master/{tipe}/{id}', [KpiMasterController::class, 'destroy'])->name('kpi-master.destroy');
 
 
 // ===== Sumber indikator KPI (dipakai bersama oleh Input Realisasi karyawan) =====

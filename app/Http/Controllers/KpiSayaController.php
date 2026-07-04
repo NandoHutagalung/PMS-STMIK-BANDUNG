@@ -14,7 +14,7 @@ class KpiSayaController extends Controller
 {
     private function kategoriUser()
     {
-        return auth()->user()->role === 'dosen' ? 'Dosen' : 'Pegawai';
+        return auth()->user()->role === 'dosen' ? 'Dosen' : 'Karyawan';
     }
 
     public function index()
