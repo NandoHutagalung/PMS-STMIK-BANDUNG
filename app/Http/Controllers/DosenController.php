@@ -14,22 +14,6 @@ class DosenController extends Controller
         return view('dosen.index', compact('dosens'));
     }
 
-    public function create()
-    {
-        return view('dosen.create');
-    }
-
-    public function store(Request $request)
-    {
-        Dosen::create([
-            'nama' => $request->nama,
-            'nidn' => $request->nidn,
-            'jabatan' => $request->jabatan,
-            'program_studi' => $request->program_studi,
-        ]);
-
-        return redirect('/dosen');
-    }
 
     public function show(Dosen $dosen)
     {

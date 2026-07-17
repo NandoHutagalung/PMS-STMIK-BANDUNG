@@ -24,7 +24,8 @@ class DashboardController extends Controller
         $totalPeriode = Periode::count();
         $totalTemplate = KpiTemplate::count();
         $totalPenilaianFinal = KpiNilai::where('status', 'final')->count();
-        $totalMenungguVerifikasi = KpiNilai::where('status', 'Menunggu Verifikasi')->count();
+$totalMenungguVerifikasi = KpiNilai::where('status', 'Menunggu Verifikasi')->count()
+                          + KpiTemplate::where('status', 'diajukan')->count();
         $rataRataNilai = KpiNilai::where('status', 'final')->avg('total_nilai');
 
         // ===== Grafik Kinerja: distribusi predikat =====

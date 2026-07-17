@@ -14,23 +14,6 @@ class KaryawanController extends Controller
         return view('karyawan.index', compact('karyawans'));
     }
 
-    public function create()
-    {
-        return view('karyawan.create');
-    }
-
-    public function store(Request $request)
-    {
-        Karyawan::create([
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'jabatan' => $request->jabatan,
-            'departemen' => $request->departemen,
-        ]);
-
-        return redirect('/karyawan');
-    }
-
     public function edit($id)
     {
         $karyawan = Karyawan::findOrFail($id);

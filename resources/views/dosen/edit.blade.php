@@ -29,9 +29,13 @@
                     <x-input-error :messages="$errors->get('jabatan')" class="mt-1.5" />
                 </div>
 
-                <div>
+<div>
                     <x-input-label for="program_studi" value="Program Studi" />
-                    <x-text-input id="program_studi" name="program_studi" type="text" class="w-full" value="{{ old('program_studi', $dosen->program_studi) }}" />
+                    <select id="program_studi" name="program_studi"
+                            class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+                        <option value="Teknik Informatika" {{ old('program_studi', $dosen->program_studi) == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                        <option value="Sistem Informasi" {{ old('program_studi', $dosen->program_studi) == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                    </select>
                     <x-input-error :messages="$errors->get('program_studi')" class="mt-1.5" />
                 </div>
             </div>
