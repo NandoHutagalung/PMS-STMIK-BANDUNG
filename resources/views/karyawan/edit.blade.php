@@ -23,11 +23,19 @@
                     <x-input-error :messages="$errors->get('nip')" class="mt-1.5" />
                 </div>
 
-                <div>
-                    <x-input-label for="jabatan" value="Jabatan" />
-                    <x-text-input id="jabatan" name="jabatan" type="text" class="w-full" value="{{ old('jabatan', $karyawan->jabatan) }}" />
-                    <x-input-error :messages="$errors->get('jabatan')" class="mt-1.5" />
-                </div>
+<div>
+    <x-input-label for="jabatan" value="Jabatan" />
+    <select id="jabatan" name="jabatan"
+            class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+        <option value="">-- Pilih Jabatan --</option>
+        @foreach($jabatans as $j)
+            <option value="{{ $j->nama_jabatan }}" {{ old('jabatan', $karyawan->jabatan) == $j->nama_jabatan ? 'selected' : '' }}>
+                {{ $j->nama_jabatan }}
+            </option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('jabatan')" class="mt-1.5" />
+</div>
 
                 <div>
                     <x-input-label for="departemen" value="Departemen" />

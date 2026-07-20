@@ -13,6 +13,7 @@ use App\Http\Controllers\KpiApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TriDharmaController;
 use App\Http\Controllers\PengembanganSdmController;
+use App\Http\Controllers\JabatanController;
 
 use App\Models\Dosen;
 use App\Models\Karyawan;
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('dosen', DosenController::class);
     Route::resource('karyawan', KaryawanController::class);
     Route::resource('periode', PeriodeController::class);
+    Route::resource('dosen', DosenController::class);
+    Route::resource('karyawan', KaryawanController::class);
+    Route::resource('periode', PeriodeController::class);
+    Route::resource('jabatan', JabatanController::class);
 
     // ===== Manajemen KPI (template per jabatan/individu) =====
     Route::resource('kpi-template', KpiTemplateController::class);

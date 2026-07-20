@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\KpiNilai;
 use App\Models\KpiTemplate;

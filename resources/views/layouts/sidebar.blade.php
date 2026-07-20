@@ -38,6 +38,10 @@
         Data Karyawan
     </x-sidebar-link>
 
+    <x-sidebar-link :href="url('/jabatan')" icon="briefcase" :active="request()->is('jabatan*')">
+    Data Jabatan
+    </x-sidebar-link>
+
     <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Manajemen KPI</p>
 
     <x-sidebar-link :href="url('/periode')" icon="calendar" :active="request()->is('periode*')">

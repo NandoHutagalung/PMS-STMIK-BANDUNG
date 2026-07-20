@@ -29,25 +29,27 @@
         </div>
 
         <!-- Jabatan (semua role) -->
-        <div class="mt-4">
-            <x-input-label for="jabatan" :value="__('Jabatan')" />
-            <x-text-input id="jabatan" class="block mt-1 w-full" type="text" name="jabatan" :value="old('jabatan')" required />
-            <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
-        </div>
+<!-- Jabatan (semua role) -->
+<div class="mt-4">
+    <x-input-label for="jabatan" :value="__('Jabatan')" />
+    <select id="jabatan" name="jabatan" required
+            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+        <option value="">-- Pilih Jabatan --</option>
+        @foreach($jabatans as $j)
+            <option value="{{ $j->nama_jabatan }}" {{ old('jabatan') == $j->nama_jabatan ? 'selected' : '' }}>
+                {{ $j->nama_jabatan }}
+            </option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
+</div>
 
-        <!-- Karyawan only -->
-        <div class="mt-4" x-show="role === 'karyawan'">
-            <x-input-label for="nip" :value="__('NIP')" />
-            <x-text-input id="nip" class="block mt-1 w-full" type="text" name="nip" :value="old('nip')" />
-            <x-input-error :messages="$errors->get('nip')" class="mt-2" />
-        </div>
-
-        <!-- Dosen only -->
-        <div class="mt-4" x-show="role === 'dosen'">
-            <x-input-label for="nidn" :value="__('NIDN')" />
-            <x-text-input id="nidn" class="block mt-1 w-full" type="text" name="nidn" :value="old('nidn')" />
-            <x-input-error :messages="$errors->get('nidn')" class="mt-2" />
-        </div>
+<!-- NIDN (Dosen) / NIP (Karyawan) -->
+<div class="mt-4" x-show="role === 'dosen' || role === 'karyawan'">
+    <x-input-label for="nidn_nip" :value="__('NIDN / NIP')" />
+    <x-text-input id="nidn_nip" class="block mt-1 w-full" type="text" name="nidn_nip" :value="old('nidn_nip')" />
+    <x-input-error :messages="$errors->get('nidn_nip')" class="mt-2" />
+</div>
 
         <div class="mt-4" x-show="role === 'dosen'">
             <x-input-label for="program_studi" :value="__('Program Studi')" />

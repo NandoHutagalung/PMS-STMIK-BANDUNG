@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 
 class DosenController extends Controller
@@ -20,11 +21,12 @@ class DosenController extends Controller
         //
     }
 
-    public function edit($id)
+public function edit($id)
 {
     $dosen = Dosen::findOrFail($id);
+    $jabatans = Jabatan::orderBy('nama_jabatan')->get();
 
-    return view('dosen.edit', compact('dosen'));
+    return view('dosen.edit', compact('dosen', 'jabatans'));
 }
 
 public function update(Request $request, $id)
