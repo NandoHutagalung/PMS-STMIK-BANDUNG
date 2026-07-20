@@ -9,11 +9,16 @@
         <form action="{{ route('periode.store') }}" method="POST" class="space-y-5">
             @csrf
 
-            <div>
-                <x-input-label for="nama_periode" value="Nama Periode" />
-                <x-text-input id="nama_periode" name="nama_periode" type="text" class="w-full" value="{{ old('nama_periode') }}" placeholder="Contoh: Semester Ganjil 2026" />
-                <x-input-error :messages="$errors->get('nama_periode')" class="mt-1.5" />
-            </div>
+ <div>
+    <x-input-label for="nama_periode" value="Nama Periode" />
+    <select id="nama_periode" name="nama_periode"
+            class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+        <option value="">-- Pilih Nama Periode --</option>
+        <option value="Semester Ganjil" {{ old('nama_periode') == 'Semester Ganjil' ? 'selected' : '' }}>Semester Ganjil</option>
+        <option value="Semester Genap" {{ old('nama_periode') == 'Semester Genap' ? 'selected' : '' }}>Semester Genap</option>
+    </select>
+    <x-input-error :messages="$errors->get('nama_periode')" class="mt-1.5" />
+</div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
