@@ -20,18 +20,20 @@ public function index(Request $request)
             ->latest()
             ->get();
 
+        session(['aktif_kpi_kategori' => $kategoriFilter]);
         return view('kpi-template.index', compact('templates', 'kategoriFilter'));
     }
 
 public function create(Request $request)
     {
-        $periodes = Periode::all();
+        $periodes = Periode::orderBy('tahun')->get()->unique('tahun');
         $kategoriTerpilih = $request->query('kategori', 'Karyawan');
 
         $daftarNama = $kategoriTerpilih == 'Dosen'
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
+        session(['aktif_kpi_kategori' => $kategoriTerpilih]);
         return view('kpi-template.create', compact('periodes', 'kategoriTerpilih', 'daftarNama'));
     }
     public function store(Request $request)
@@ -85,12 +87,14 @@ public function edit($id)
     {
         $template = KpiTemplate::with('items')->findOrFail($id);
         $periodes = Periode::all();
+        $kategoriTerpilih = $template->kategori_pegawai;
 
         $daftarNama = $template->kategori_pegawai == 'Dosen'
             ? Dosen::orderBy('nama')->pluck('nama')
             : Karyawan::orderBy('nama')->pluck('nama');
 
-        return view('kpi-template.edit', compact('template', 'periodes', 'daftarNama'));
+        session(['aktif_kpi_kategori' => $kategoriTerpilih]);
+        return view('kpi-template.edit', compact('template', 'periodes', 'daftarNama', 'kategoriTerpilih'));
     }
 
     public function update(Request $request, $id)

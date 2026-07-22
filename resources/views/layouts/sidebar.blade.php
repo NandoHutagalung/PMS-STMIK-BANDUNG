@@ -50,11 +50,11 @@
     
 <p class="px-3 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-blue-400">Input KPI</p>
 
-    <x-sidebar-link :href="url('/kpi-template?kategori=Dosen')" icon="academic-cap" :active="request()->is('kpi-template*') && request('kategori') == 'Dosen'">
+<x-sidebar-link :href="url('/kpi-template?kategori=Dosen')" icon="academic-cap" :active="request()->is('kpi-template*') && session('aktif_kpi_kategori') == 'Dosen'">
         Input KPI Dosen
     </x-sidebar-link>
 
-<x-sidebar-link :href="url('/kpi-template?kategori=Karyawan')" icon="briefcase" :active="request()->is('kpi-template*') && request('kategori') != 'Dosen'">
+    <x-sidebar-link :href="url('/kpi-template?kategori=Karyawan')" icon="briefcase" :active="request()->is('kpi-template*') && session('aktif_kpi_kategori') == 'Karyawan'">
         Input KPI Karyawan
     </x-sidebar-link>
 

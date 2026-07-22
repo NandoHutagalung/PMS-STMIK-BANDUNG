@@ -9,20 +9,14 @@
         <form action="{{ route('pengembangan-sdm.store') }}" method="POST" class="space-y-5">
             @csrf
 
-            <div>
-                <x-input-label value="Kategori" />
-                <div class="grid grid-cols-3 gap-3 mt-1">
-                    @foreach(['Pelatihan' => 'clipboard-check', 'Sertifikasi' => 'check-circle', 'Penghargaan' => 'star'] as $kat => $icon)
-                    <label class="cursor-pointer">
-                        <input type="radio" name="kategori" value="{{ $kat }}" class="peer sr-only"
-                               {{ $kategoriTerpilih == $kat ? 'checked' : '' }}>
-                        <div class="flex flex-col items-center gap-1.5 rounded-xl border-2 border-gray-200 px-3 py-3 text-center peer-checked:border-blue-600 peer-checked:bg-blue-50 transition">
-                            <x-icon :name="$icon" class="w-5 h-5 text-blue-600" />
-                            <span class="text-xs font-semibold text-slate-700">{{ $kat }}</span>
-                        </div>
-                    </label>
-                    @endforeach
-                </div>
+<div>
+                <x-input-label for="kategori" value="Kategori" />
+                <select id="kategori" name="kategori"
+                        class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
+                    <option value="Pelatihan" {{ $kategoriTerpilih == 'Pelatihan' ? 'selected' : '' }}>Pelatihan</option>
+                    <option value="Sertifikasi" {{ $kategoriTerpilih == 'Sertifikasi' ? 'selected' : '' }}>Sertifikasi</option>
+                    <option value="Penghargaan" {{ $kategoriTerpilih == 'Penghargaan' ? 'selected' : '' }}>Penghargaan</option>
+                </select>
                 <x-input-error :messages="$errors->get('kategori')" class="mt-1.5" />
             </div>
 

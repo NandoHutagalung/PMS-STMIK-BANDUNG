@@ -9,9 +9,10 @@ class JabatanController extends Controller
 {
     public function index()
     {
-        $jabatans = Jabatan::orderBy('nama_jabatan')->get();
+        $jabatanKaryawan = Jabatan::where('jenis', 'karyawan')->orderBy('nama_jabatan')->get();
+        $jabatanDosen    = Jabatan::where('jenis', 'dosen')->orderBy('nama_jabatan')->get();
 
-        return view('jabatan.index', compact('jabatans'));
+        return view('jabatan.index', compact('jabatanKaryawan', 'jabatanDosen'));
     }
 
     public function create()
@@ -23,9 +24,13 @@ class JabatanController extends Controller
     {
         $request->validate([
             'nama_jabatan' => 'required|string|max:255|unique:jabatans,nama_jabatan',
+            'jenis'        => 'required|in:karyawan,dosen',
         ]);
 
-        Jabatan::create(['nama_jabatan' => $request->nama_jabatan]);
+        Jabatan::create([
+            'nama_jabatan' => $request->nama_jabatan,
+            'jenis'        => $request->jenis,
+        ]);
 
         return redirect('/jabatan')->with('success', 'Jabatan berhasil ditambahkan.');
     }
@@ -41,9 +46,13 @@ class JabatanController extends Controller
     {
         $request->validate([
             'nama_jabatan' => 'required|string|max:255|unique:jabatans,nama_jabatan,' . $id,
+            'jenis'        => 'required|in:karyawan,dosen',
         ]);
 
-        Jabatan::findOrFail($id)->update(['nama_jabatan' => $request->nama_jabatan]);
+        Jabatan::findOrFail($id)->update([
+            'nama_jabatan' => $request->nama_jabatan,
+            'jenis'        => $request->jenis,
+        ]);
 
         return redirect('/jabatan')->with('success', 'Jabatan berhasil diperbarui.');
     }

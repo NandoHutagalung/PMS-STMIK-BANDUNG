@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-slate-800">Edit KPI Dosen / Karyawan</h2>
+        <h2 class="text-2xl font-bold text-slate-800">Edit KPI {{ $template->kategori_pegawai }}</h2>
         <p class="text-sm text-slate-500 mt-1">Perbarui data KPI dan target yang diharapkan.</p>
     </x-slot>
 
@@ -50,18 +50,18 @@
                         <x-input-label for="semester" value="Semester" />
                         <select id="semester" name="semester"
                                 class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
-                            <option value="Ganjil" {{ $template->semester == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                            <option value="Genap" {{ $template->semester == 'Genap' ? 'selected' : '' }}>Genap</option>
+                            <option value="Semester Ganjil" {{ old('semester', $template->semester) == 'Semester Ganjil' ? 'selected' : '' }}>Semester Ganjil</option>
+                            <option value="Semester Genap" {{ old('semester', $template->semester) == 'Semester Genap' ? 'selected' : '' }}>Semester Genap</option>
                         </select>
                     </div>
 
                     <div>
-                        <x-input-label for="periode_id" value="Tahun Akademik / Periode" />
+                        <x-input-label for="periode_id" value="Tahun Akademik" />
                         <select id="periode_id" name="periode_id"
                                 class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                             @foreach($periodes as $periode)
                                 <option value="{{ $periode->id }}" {{ $template->periode_id == $periode->id ? 'selected' : '' }}>
-                                    {{ $periode->nama_periode }} ({{ $periode->tahun }})
+                                    {{ $periode->tahun }}
                                 </option>
                             @endforeach
                         </select>
@@ -105,11 +105,11 @@
                                 <tr>
                                     <td class="px-3 py-2 text-slate-500" x-text="index + 1"></td>
                                     <td class="px-3 py-2">
-                                        <input type="text" :name="'aspek[' + index + ']'" x-model="row.aspek" list="daftarAspek"
+                                        <input type="text" :name="'aspek[' + index + ']'" x-model="row.aspek"
                                                class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                                     </td>
                                     <td class="px-3 py-2">
-                                        <input type="text" :name="'indikator[' + index + ']'" x-model="row.indikator" list="daftarIndikator"
+                                        <input type="text" :name="'indikator[' + index + ']'" x-model="row.indikator"
                                                class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                                     </td>
                                     <td class="px-3 py-2">
@@ -125,7 +125,7 @@
                                                class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                                     </td>
                                     <td class="px-3 py-2">
-                                        <input type="number" step="0.01" :name="'bobot[' + index + ']'" x-model.number="row.bobot" list="daftarBobot"
+                                        <input type="number" step="0.01" :name="'bobot[' + index + ']'" x-model.number="row.bobot"
                                                class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                                     </td>
                                     <td class="px-3 py-2 text-right">
@@ -158,7 +158,7 @@
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-wrap items-center justify-between gap-3">
                 <p class="text-xs text-slate-400">Perubahan akan menggantikan seluruh daftar indikator KPI sebelumnya.</p>
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('kpi-template.index') }}">
+                    <a href="{{ route('kpi-template.index', ['kategori' => $template->kategori_pegawai]) }}">
                         <x-secondary-button type="button">Batal</x-secondary-button>
                     </a>
                     <button type="submit" name="status" value="draft"

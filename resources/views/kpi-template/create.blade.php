@@ -1,8 +1,8 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-slate-800">Input KPI Dosen / Pegawai</h2>
-        <p class="text-sm text-slate-500 mt-1">Silakan lengkapi data KPI dengan target yang diharapkan.</p>
+<h2 class="text-2xl font-bold text-slate-800">Input KPI {{ $kategoriTerpilih }}</h2>
+        <p class="text-sm text-slate-500 mt-1">Silakan lengkapi data KPI dengan target yang diharapkan.</p>        
     </x-slot>
 
     <div x-data="kpiTemplateForm()" class="space-y-6">
@@ -44,22 +44,22 @@
                         <x-input-error :messages="$errors->get('jabatan')" class="mt-1.5" />
                     </div>
 
-                    <div>
+<div>
                         <x-input-label for="semester" value="Semester" />
                         <select id="semester" name="semester"
                                 class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
-                            <option value="Ganjil" {{ old('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                            <option value="Genap" {{ old('semester') == 'Genap' ? 'selected' : '' }}>Genap</option>
+                            <option value="Semester Ganjil" {{ old('semester') == 'Semester Ganjil' ? 'selected' : '' }}>Semester Ganjil</option>
+                            <option value="Semester Genap" {{ old('semester') == 'Semester Genap' ? 'selected' : '' }}>Semester Genap</option>
                         </select>
                     </div>
 
                     <div>
-                        <x-input-label for="periode_id" value="Tahun Akademik / Periode" />
+                        <x-input-label for="periode_id" value="Tahun Akademik" />
                         <select id="periode_id" name="periode_id"
                                 class="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-lg shadow-sm text-sm">
                             @foreach($periodes as $periode)
                                 <option value="{{ $periode->id }}" {{ old('periode_id') == $periode->id ? 'selected' : '' }}>
-                                    {{ $periode->nama_periode }} ({{ $periode->tahun }})
+                                    {{ $periode->tahun }}
                                 </option>
                             @endforeach
                         </select>
@@ -164,7 +164,7 @@
                     Pastikan setiap KPI memiliki target dan satuan yang jelas. KPI akan menjadi dasar penilaian kinerja pegawai.
                 </p>
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('kpi-template.index') }}">
+<a href="{{ route('kpi-template.index', ['kategori' => $kategoriTerpilih]) }}">
                         <x-secondary-button type="button">Batal</x-secondary-button>
                     </a>
                     <button type="submit" name="status" value="draft"
